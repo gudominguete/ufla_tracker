@@ -4,6 +4,9 @@ import android.app.Application
 import androidx.room.Room
 import com.facebook.stetho.Stetho
 import com.ufla.gustavo.uflatracker.database.AppDatabase
+import com.ufla.gustavo.uflatracker.di.ModulosApp
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 open class TrackerApplication : Application() {
 
@@ -22,5 +25,12 @@ open class TrackerApplication : Application() {
         initializerBuilder.enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
         val initializer = initializerBuilder.build()
         Stetho.initialize(initializer)
+    }
+
+    private fun setupKoin(){
+        startKoin{
+            androidContext(this@TrackerApplication)
+            modules(ModulosApp.obterModulos())
+        }
     }
 }
