@@ -1,22 +1,20 @@
 package com.ufla.gustavo.uflatracker.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
     tableName = "registro_atividade",
-    indices = [Index("id")]
-)
+    indices = [Index("id")],
+    foreignKeys = arrayOf(ForeignKey(entity = Atividade::class,
+    parentColumns = arrayOf("id"),
+    childColumns = arrayOf("atividadeId"),
+    onDelete = ForeignKey.CASCADE)))
 data class RegistroAtividade(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int,
-
+    var id: Long? =null,
     @ColumnInfo(name = "valor_batimento")
     var valorBatimento: Int,
 
-    @ColumnInfo(name = "id_atividade")
-    var idAtividade: Int
+    val atividadeId: Long
 )

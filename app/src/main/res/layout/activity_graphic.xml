@@ -10,4 +10,41 @@
         android:layout_height="200dip"
         android:id="@+id/graph"
         tools:ignore="MissingConstraints" />
+
+
+    <Chronometer
+        app:layout_constraintTop_toBottomOf="@+id/graph"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:id="@+id/cmTimer" />
+
+    <Button
+        android:id="@+id/btn_start"
+        android:text="Iniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cmTimer" />
+
+    <Button
+        android:id="@+id/btn_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pausar"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cmTimer" />
+
+    <Button
+        android:id="@+id/btn_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cmTimer" />
 </androidx.constraintlayout.widget.ConstraintLayout>
