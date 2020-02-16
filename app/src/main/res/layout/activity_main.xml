@@ -24,5 +24,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botao_graficos" />
 
+    <Button
+        android:id="@+id/botao_historico_atividades"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Histórico"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botao_adicionar_registro" />
+
+    <Button
+        android:id="@+id/botao_conexao_bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Conexão bluetooth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botao_historico_atividades" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

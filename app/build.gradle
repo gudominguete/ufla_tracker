@@ -44,7 +44,8 @@ dependencies {
     def room_version = "2.2.2"
 
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
@@ -59,7 +60,7 @@ dependencies {
     def archRoomVersion = '1.0.0-alpha3' // OBS: Adicionar versão mais recente
     implementation "android.arch.persistence.room:runtime:$archRoomVersion"
     kapt "android.arch.persistence.room:compiler:$archRoomVersion"
-    compile "com.facebook.stetho:stetho:1.4.1"
+    implementation "com.facebook.stetho:stetho:1.4.1"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

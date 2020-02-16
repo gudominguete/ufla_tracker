@@ -25,6 +25,10 @@ class GraphicActivity : AppCompatActivity() {
     private var contador = 51
     private var lista = mutableListOf<DataPoint>()
     private var listaRegistroAtividade = mutableListOf<Int>()
+    private var valor_minimo = 12000
+    private var valor_maximo = 0
+    private var valor_medio = 0
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +53,8 @@ class GraphicActivity : AppCompatActivity() {
         btn_finish.setOnClickListener {
             cmTimer.stop()
             handler.removeCallbacks(myRunnable);
-            var atividade = Atividade(null, Calendar.getInstance() , "Atividade 1")
+            valor_medio = valor_medio/ listaRegistroAtividade.size
+            var atividade = Atividade(null, Calendar.getInstance() , "Atividade " + Date(), valor_maximo.toDouble(), valor_minimo.toDouble(), valor_medio.toDouble())
             atividade.id = TrackerApplication.database?.atividadeDao()?.insertOrUpdateAtividades(atividade)
             listaRegistroAtividade.forEach {
 
@@ -79,6 +84,14 @@ class GraphicActivity : AppCompatActivity() {
         override fun run() {
             val nextValues = Random.nextInt(50, 200)
             lista.removeAt(0)
+            if(nextValues < valor_minimo){
+                valor_minimo = nextValues
+            }
+            if(nextValues > valor_maximo){
+                valor_maximo = nextValues
+            }
+            valor_medio += nextValues
+
             lista.add(DataPoint(contador.toDouble(), nextValues.toDouble()))
             graph.removeAllSeries()
             graph.addSeries(LineGraphSeries(lista.toTypedArray()))
