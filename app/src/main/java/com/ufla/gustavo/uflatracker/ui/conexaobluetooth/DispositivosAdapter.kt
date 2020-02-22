@@ -9,13 +9,14 @@ import java.nio.file.Files.size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.ufla.gustavo.uflatracker.R
 
 
 class DispositivosAdapter(
     internal var mctx: Context,
     private val mList: List<BluetoothDevice>,
-    val funcao: (Unit) -> Unit
+    val funcao: (BluetoothDevice) -> Unit
 ) : RecyclerView.Adapter<DispositivosAdapter.DispositivosViewHolder>() {
 
 
@@ -30,6 +31,9 @@ class DispositivosAdapter(
 
         viewHolder.viewNome.text = dispositivo.name
         viewHolder.viewEndereco.text = dispositivo.address
+        viewHolder.layout.setOnClickListener {
+            funcao(dispositivo)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -42,10 +46,11 @@ class DispositivosAdapter(
 
         var viewNome: TextView
         var viewEndereco: TextView
-
+        var layout : ConstraintLayout
         init {
             viewNome = itemView.findViewById(R.id.conteudo_nome)
             viewEndereco = itemView.findViewById(R.id.conteudo_endereco)
+            layout = itemView.findViewById(R.id.layout_recycle_dispositivo)
         }
     }
 }
