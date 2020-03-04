@@ -17,4 +17,8 @@
     <string name="char_uuid_catch_all">Your Catch All UUID</string>
     <string name="char_uuid_missed_calls">Your Missed call UUID</string>
     <string name="ble_not_supported">O celular não suporta BLE</string>
+    <string name="entrar">Entrar</string>
+    <string name="tracker">TRACKER</string>
+    <string name="ufla">UFLA</string>
+    <string name="ola">Olá,</string>
 </resources>

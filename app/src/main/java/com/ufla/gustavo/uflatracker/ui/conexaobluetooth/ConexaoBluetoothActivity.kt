@@ -3,6 +3,7 @@ package com.ufla.gustavo.uflatracker.ui.conexaobluetooth
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothSocket
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -13,10 +14,17 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_conexao_bluetooth.*
+import java.io.IOException
+import java.util.*
+import kotlin.collections.ArrayList
 
+
+private const val BASE_UUID = "00000000-0000-1000-8000-00805F9B34FB"
 
 class ConexaoBluetoothActivity() : AppCompatActivity() {
 
+
+    var socket : BluetoothSocket? = null;
     var mBTDevices: ArrayList<BluetoothDevice> = ArrayList()
     var mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
@@ -98,7 +106,64 @@ class ConexaoBluetoothActivity() : AppCompatActivity() {
 
     private fun atualizarRecycleView() {
         recycle_dispositivos.layoutManager = LinearLayoutManager(this)
-        var adapter = DispositivosAdapter(this, mBTDevices)
+        var adapter = DispositivosAdapter(this, mBTDevices, {
+            Log.i("teste", it.name)
+            parearDispositivo(it)
+        })
         recycle_dispositivos.setAdapter(adapter);
+    }
+
+    private fun parearDispositivo(bluetoothDevice: BluetoothDevice){
+
+        var connectionThread = ConnectionThread(bluetoothDevice)
+        { isSuccess -> {Log.i("SUCESSO", "true")}}
+        connectionThread?.start()
+    }
+
+    private class ConnectionThread(private val device : BluetoothDevice,
+                                   private val onComplete: (isSuccess : Boolean) -> Unit) : Thread() {
+
+        private var bluetoothAdapter : BluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        private var bluetoothSocket : BluetoothSocket? = createSocket();
+
+        private fun createSocket() : BluetoothSocket? {
+            var socket : BluetoothSocket? = null;
+
+            try {
+                val uuid = if (device.uuids!= null && device.uuids.size > 0)
+                    device.uuids[0].uuid
+                else UUID.fromString(BASE_UUID);
+
+                socket = device.createRfcommSocketToServiceRecord(uuid)
+            }
+            catch (e : IOException) {}
+
+            return socket;
+        }
+
+        override fun run() {
+            super.run()
+
+            bluetoothAdapter.cancelDiscovery()
+            var isSuccess = false
+
+            try {
+                if (bluetoothSocket != null) {
+                    bluetoothSocket?.connect()
+                    isSuccess = true
+                }
+
+            }
+            catch (e: Exception) {
+                Log.e("error", e.message)
+            }
+
+            onComplete(isSuccess)
+        }
+
+        fun cancel() {
+            if (bluetoothSocket != null)
+                bluetoothSocket?.close()
+        }
     }
 }

@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="loginPrincipalBG">#25265E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="semConexaoBG">#F5F6FB</color>
 </resources>
