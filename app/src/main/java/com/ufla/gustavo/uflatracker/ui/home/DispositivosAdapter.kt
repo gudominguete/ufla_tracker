@@ -1,11 +1,9 @@
-package com.ufla.gustavo.uflatracker.ui.conexaobluetooth
+package com.ufla.gustavo.uflatracker.ui.home
 
-import android.bluetooth.BluetoothClass
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.nio.file.Files.size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +12,6 @@ import com.ufla.gustavo.uflatracker.R
 
 
 class DispositivosAdapter(
-    internal var mctx: Context,
     private val mList: List<BluetoothDevice>,
     val funcao: (BluetoothDevice) -> Unit
 ) : RecyclerView.Adapter<DispositivosAdapter.DispositivosViewHolder>() {

@@ -41,5 +41,9 @@ class HomeActivity : AppCompatActivity() {
             var intent = Intent(this, AtividadeActivity::class.java)
             startActivity(intent)
         }
+        botao_conectar_bluetooth.setOnClickListener {
+            val dialog = ListaDispositivosDialog(this)
+            dialog.show()
+        }
     }
 }
