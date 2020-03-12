@@ -27,7 +27,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="14dp"
         android:fontFamily="@font/robotobold"
-        android:text="Gustavo Lopes Dominguete"
+        android:text=""
         android:textColor="@color/loginPrincipalBG"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@id/texto_ola"
@@ -160,6 +160,7 @@
             app:layout_constraintGuide_percent="0.5" />
 
         <LinearLayout
+            android:id="@+id/botao_historico"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline2"
             app:layout_constraintTop_toTopOf="parent"
@@ -207,6 +208,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/botao_iniciar_home"
         android:background="@drawable/bg_botao_iniciar"
         app:layout_constraintBottom_toTopOf="@+id/footer"
         app:layout_constraintLeft_toLeftOf="@+id/footer"

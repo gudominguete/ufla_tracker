@@ -4,17 +4,49 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_recycle_historico">
+    android:background="@drawable/bg_historico"
+    android:id="@+id/layout_recycle_historico"
+    android:layout_marginBottom="18dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp">
+    <TextView
+        android:id="@+id/label_corrida"
+        android:paddingTop="30dp"
+        android:paddingStart="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Corrida"
+        android:fontFamily="@font/robotobold"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="RtlSymmetry" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/texto_nome"
-        tools:ignore="MissingConstraints" />
+        android:text="3,87KM"
+        android:fontFamily="@font/robotobold"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/label_corrida"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="24dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="28dp"
+        tools:ignore="RtlSymmetry" />
+
     <TextView
-        android:id="@+id/texto_data"
-        app:layout_constraintTop_toBottomOf="@id/texto_nome"
+        android:paddingTop="30dp"
+        android:paddingEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/robotobold"
+        android:text="01/02/2020"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="RtlSymmetry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

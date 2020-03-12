@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_chevron_left_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/av/ic_stop_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,9 +33,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="25265e" />
-                            <entry key="outputName" value="ic_chevron_left" />
-                            <entry key="sourceFile" value="$USER_HOME$/Downloads/Group 8.svg" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_stop" />
+                            <entry key="sourceFile" value="C:\Users\gusta\Downloads\mdi_directions_run.svg" />
                           </map>
                         </option>
                       </PersistentState>

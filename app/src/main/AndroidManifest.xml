@@ -20,14 +20,20 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.perfil.PerfilActivity"
+        <activity android:name=".ui.atividade.AtividadeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.perfil.PerfilActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.conexaobluetooth.ConexaoBluetoothActivity" />
-        <activity android:name=".ui.visualizacao.VisualizacaoActivity" />
-        <activity android:name=".ui.historico.HistoricoActivity" />
+        <activity android:name=".ui.visualizacao.VisualizacaoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.historico.HistoricoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.GraphicActivity"
             android:label="@string/title_activity_graphic"

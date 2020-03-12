@@ -9,6 +9,7 @@ import com.ufla.gustavo.uflatracker.R
 import com.ufla.gustavo.uflatracker.TrackerApplication
 import com.ufla.gustavo.uflatracker.entity.Atividade
 import com.ufla.gustavo.uflatracker.entity.RegistroAtividade
+import kotlinx.android.synthetic.main.activity_visualizacao.*
 
 class VisualizacaoActivity : AppCompatActivity() {
 
@@ -18,9 +19,16 @@ class VisualizacaoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualizacao)
-        var myIntent = getIntent();
-        var atividade = myIntent.getSerializableExtra("atividade") as Atividade
-        preencherLista(atividade)
+//        var myIntent = getIntent();
+//        var atividade = myIntent.getSerializableExtra("atividade") as Atividade
+//        preencherLista(atividade)
+        prepararClickListener()
+    }
+
+    private fun prepararClickListener() {
+        botao_voltar_visualizacao.setOnClickListener {
+            finish()
+        }
     }
 
     private fun preencherLista(atividade:Atividade){
@@ -28,16 +36,16 @@ class VisualizacaoActivity : AppCompatActivity() {
         prepararLista(registros!!)
     }
     private fun prepararLista(registros: List<RegistroAtividade>) {
-        var item = 0
-        registros.forEach {
-
-            lista.add(DataPoint( item.toDouble(),it.valorBatimento.toDouble()))
-            item++
-        }
-
-        val graph = findViewById(R.id.visualizacao_graph) as GraphView
-        val series = LineGraphSeries(lista.toTypedArray())
-        graph.addSeries(series)
+//        var item = 0
+//        registros.forEach {
+//
+//            lista.add(DataPoint( item.toDouble(),it.valorBatimento.toDouble()))
+//            item++
+//        }
+//
+//        val graph = findViewById(R.id.visualizacao_graph) as GraphView
+//        val series = LineGraphSeries(lista.toTypedArray())
+//        graph.addSeries(series)
     }
 
 }

@@ -38,13 +38,13 @@ class HistoricoAdapter(private val context: Context, private var listaAtividade:
 
     class HistoricoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        val textViewNome = itemView.texto_nome
-        val textViewData = itemView.texto_data
+//        val textViewNome = itemView.texto_nome
+//        val textViewData = itemView.texto_data
         val layout = itemView.layout_recycle_historico
 
         fun bindView(atividade: Atividade) {
-            textViewNome.text = atividade.nome
-            textViewData.text = atividade.dataCriacao?.time.toString()
+//            textViewNome.text = atividade.nome
+//            textViewData.text = atividade.dataCriacao?.time.toString()
         }
     }
 }
