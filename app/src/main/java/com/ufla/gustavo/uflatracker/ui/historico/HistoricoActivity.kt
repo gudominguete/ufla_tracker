@@ -36,13 +36,7 @@ class HistoricoActivity : AppCompatActivity() {
 
     fun configurarRecyclerView(){
 
-//        var atividades = TrackerApplication.database?.atividadeDao()?.getAtividades()
-        var atividades = listOf<Atividade>(Atividade(1, Calendar.getInstance(),"", 0.toDouble(),0.toDouble(),0.toDouble()),
-            Atividade(1, Calendar.getInstance(),"", 0.toDouble(),0.toDouble(),0.toDouble()),
-            Atividade(1, Calendar.getInstance(),"", 0.toDouble(),0.toDouble(),0.toDouble()),
-            Atividade(1, Calendar.getInstance(),"", 0.toDouble(),0.toDouble(),0.toDouble()),
-            Atividade(1, Calendar.getInstance(),"", 0.toDouble(),0.toDouble(),0.toDouble()),
-            Atividade(1, Calendar.getInstance(),"", 0.toDouble(),0.toDouble(),0.toDouble()))
+        var atividades = TrackerApplication.database?.atividadeDao()?.getAtividades()
         var historicoAdapter= HistoricoAdapter(this, atividades!!)
         lista_historico.adapter = historicoAdapter
         lista_historico.layoutManager = LinearLayoutManager(this)

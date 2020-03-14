@@ -30,6 +30,7 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
     private var btProviderName: String? = null
     private var bluetoothDevice :BluetoothDevice? = null
     private lateinit var activity: Activity
+    private var conectado = false
 
     override fun onOpenResult(ok: Boolean) {
     }
@@ -41,6 +42,9 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
         if (connectOK) {
             save()
             startTimer()
+            conectado = true
+        } else {
+            conectado = false
         }
     }
 
@@ -63,6 +67,7 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
             .putString("pref_bt_name", bluetoothDevice?.name)
             .putString("pref_bt_address", bluetoothDevice?.address)
             .putString("pref_bt_provider", hrProvider?.getProviderName())
+            .putBoolean("conectado", true)
         ed.apply()
     }
 
@@ -106,13 +111,10 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
 
         btProviderName = prefs.getString("pref_bt_provider", null)
 
-        if (btProviderName != null) {
-            Log.i("teste", "HRManager.get($btProviderName)")
-            hrProvider = HRManager.getHRProvider(this, btProviderName)
-        }else {
-            hrProvider = AndroidBLEHRProvider(this)
-            open()
-        }
+
+        hrProvider = AndroidBLEHRProvider(this)
+        open()
+
     }
 
     private fun open() {

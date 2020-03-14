@@ -11,6 +11,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.view.Window
@@ -24,6 +26,7 @@ class ListaDispositivosDialog (activity: Activity, funcaoConectar: (BluetoothDev
     var mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     var activity: Activity
     var funcaoConectar: (BluetoothDevice)->(Unit)
+    private var handler = Handler()
 
     init {
         setCancelable(false)
@@ -63,7 +66,9 @@ class ListaDispositivosDialog (activity: Activity, funcaoConectar: (BluetoothDev
             recycle_dispositivos.layoutManager = LinearLayoutManager(context)
 
             var adapter = DispositivosAdapter(mBTDevices) {
+                loading.visibility = View.VISIBLE
                 funcaoConectar(it)
+                handler.postDelayed(myRunnable, 10)
             }
             recycle_dispositivos.setAdapter(adapter)
             texto_nao_foram_encontrados.visibility = View.GONE
@@ -88,6 +93,21 @@ class ListaDispositivosDialog (activity: Activity, funcaoConectar: (BluetoothDev
                 }
                 if (!possui) mBTDevices.add(device)
                 atualizarRecycleView()
+            }
+        }
+    }
+
+    var myRunnable: Runnable = object : Runnable {
+        override fun run() {
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+//            var btName = prefs.getString("pref_bt_name", null)
+//            var btAddress = prefs.getString("pref_bt_address", null)
+            var conectado = prefs.getBoolean("conectado", false)
+            if(conectado){
+                dismiss()
+            } else {
+
+                handler.postDelayed(this, 10)
             }
         }
     }

@@ -19,6 +19,9 @@ data class Atividade(
     @ColumnInfo(name = "data_criacao")
     var dataCriacao: Calendar? =null,
 
+    @ColumnInfo(name="tempo_atividade")
+    var tempoAtividade: String,
+
     @ColumnInfo(name = "nome")
     var nome: String,
 

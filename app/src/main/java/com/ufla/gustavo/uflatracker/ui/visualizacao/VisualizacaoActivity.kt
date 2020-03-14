@@ -19,10 +19,18 @@ class VisualizacaoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualizacao)
-//        var myIntent = getIntent();
-//        var atividade = myIntent.getSerializableExtra("atividade") as Atividade
-//        preencherLista(atividade)
+        var myIntent = getIntent();
+        var atividade = myIntent.getSerializableExtra("atividade") as Atividade
+        preencherLista(atividade)
+        preencherCampos(atividade)
         prepararClickListener()
+    }
+
+    private fun preencherCampos(atividade: Atividade) {
+        texto_nome_atividade_visualizacao.text = atividade.nome
+        valor_batimentos_cardiacos.text = atividade.valor_medio.toString()
+        valor_batimentos_cardiacos_minimo.text = atividade.valor_minimo.toString()
+        valor_batimentos_cardiacos_maximo.text = atividade.valor_maximo.toString()
     }
 
     private fun prepararClickListener() {
@@ -36,16 +44,16 @@ class VisualizacaoActivity : AppCompatActivity() {
         prepararLista(registros!!)
     }
     private fun prepararLista(registros: List<RegistroAtividade>) {
-//        var item = 0
-//        registros.forEach {
-//
-//            lista.add(DataPoint( item.toDouble(),it.valorBatimento.toDouble()))
-//            item++
-//        }
-//
-//        val graph = findViewById(R.id.visualizacao_graph) as GraphView
-//        val series = LineGraphSeries(lista.toTypedArray())
-//        graph.addSeries(series)
+        var item = 0
+        registros.forEach {
+
+            lista.add(DataPoint( item.toDouble(),it.valorBatimento.toDouble()))
+            item++
+        }
+
+        val graph = findViewById(R.id.visualizacao_graph) as GraphView
+        val series = LineGraphSeries(lista.toTypedArray())
+        graph.addSeries(series)
     }
 
 }

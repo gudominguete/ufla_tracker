@@ -15,7 +15,7 @@ private const val DATABASE = "notes"
 
 @Database(
     entities = [RegistroAtividade::class, Atividade::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(TimestampConverter::class)

@@ -1,5 +1,6 @@
 package com.ufla.gustavo.uflatracker.ui.historico
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,9 +9,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ufla.gustavo.uflatracker.R
 import com.ufla.gustavo.uflatracker.entity.Atividade
-import com.ufla.gustavo.uflatracker.ui.GraphicActivity
 import com.ufla.gustavo.uflatracker.ui.visualizacao.VisualizacaoActivity
 import kotlinx.android.synthetic.main.historico_item.view.*
+import java.text.SimpleDateFormat
+
 
 class HistoricoAdapter(private val context: Context, private var listaAtividade: List<Atividade>):
     RecyclerView.Adapter<HistoricoAdapter.HistoricoViewHolder>() {
@@ -38,13 +40,19 @@ class HistoricoAdapter(private val context: Context, private var listaAtividade:
 
     class HistoricoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-//        val textViewNome = itemView.texto_nome
-//        val textViewData = itemView.texto_data
+        val textViewNome = itemView.label_nome_atividade
+        val textViewData = itemView.label_data_historico
         val layout = itemView.layout_recycle_historico
+        val tempoHistorico = itemView.tempo_atividade_historico
 
+        @SuppressLint("SimpleDateFormat")
         fun bindView(atividade: Atividade) {
-//            textViewNome.text = atividade.nome
-//            textViewData.text = atividade.dataCriacao?.time.toString()
+            textViewNome.text = atividade.nome
+            val pattern = "dd/MM/yyyy HH:mm"
+            val simpleDateFormat = SimpleDateFormat(pattern)
+            val date = simpleDateFormat.format(atividade.dataCriacao?.time)
+            textViewData.text = date
+            tempoHistorico.text = atividade.tempoAtividade
         }
     }
 }

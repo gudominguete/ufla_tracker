@@ -108,7 +108,7 @@ class AtividadeActivity : AppCompatActivity() {
         var dialog = SalvarDialog(this){
             handler.removeCallbacks(myRunnable)
             valor_medio = valor_medio/ listaRegistroAtividade.size
-            var atividade = Atividade(null, Calendar.getInstance() , it, valor_maximo.toDouble(), valor_minimo.toDouble(), valor_medio.toDouble())
+            var atividade = Atividade(null, Calendar.getInstance() ,  valor_tempo.text.toString(), it,  valor_maximo.toDouble(), valor_minimo.toDouble(), valor_medio.toDouble())
             atividade.id = TrackerApplication.database?.atividadeDao()?.insertOrUpdateAtividades(atividade)
             listaRegistroAtividade.forEach {
 
