@@ -28,7 +28,7 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
     private var hrProvider: HRProvider? = null
     private var hrReader: Timer? = null
     private var btProviderName: String? = null
-    private var bluetoothDevice :BluetoothDevice? = null
+    var bluetoothDevice :BluetoothDevice? = null
     private lateinit var activity: Activity
     private var conectado = false
 
@@ -125,7 +125,6 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
             hrProvider = null
         }
         if (hrProvider != null) {
-            Log.i("Teste", hrProvider?.getProviderName() + ".open(this)")
             hrProvider?.open(handler, this)
         } else {
 //            updateView()

@@ -21,6 +21,7 @@ import com.ufla.gustavo.uflatracker.entity.RegistroAtividade
 import com.ufla.gustavo.uflatracker.service.ConectarBluetoothService
 import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_atividade.*
+import kotlinx.android.synthetic.main.activity_home.*
 import java.util.*
 
 class AtividadeActivity : AppCompatActivity() {
