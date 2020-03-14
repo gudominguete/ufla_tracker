@@ -18,15 +18,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ufla.gustavo.uflatracker.R
 import kotlinx.android.synthetic.main.dialog_lista_dispositivos.*
 
-class ListaDispositivosDialog (activity: Activity): Dialog(activity){
+class ListaDispositivosDialog (activity: Activity, funcaoConectar: (BluetoothDevice)->(Unit)): Dialog(activity){
 
     var mBTDevices: ArrayList<BluetoothDevice> = ArrayList()
     var mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     var activity: Activity
+    var funcaoConectar: (BluetoothDevice)->(Unit)
 
     init {
         setCancelable(false)
         this.activity =activity
+        this.funcaoConectar = funcaoConectar
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,10 +62,9 @@ class ListaDispositivosDialog (activity: Activity): Dialog(activity){
 
             recycle_dispositivos.layoutManager = LinearLayoutManager(context)
 
-            var adapter = DispositivosAdapter(mBTDevices, {
-                Log.i("teste", it.name)
-//            parearDispositivo(it)
-            })
+            var adapter = DispositivosAdapter(mBTDevices) {
+                funcaoConectar(it)
+            }
             recycle_dispositivos.setAdapter(adapter)
             texto_nao_foram_encontrados.visibility = View.GONE
             recycle_dispositivos.visibility = View.VISIBLE
@@ -81,7 +82,7 @@ class ListaDispositivosDialog (activity: Activity): Dialog(activity){
                     intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
                 var possui = false
                 mBTDevices.forEach {
-                    if(it.name.equals(device.name) && it.address.equals(device.address)){
+                    if(it.name != null && it.name.equals(device.name) && it.address.equals(device.address)){
                         possui = true
                     }
                 }

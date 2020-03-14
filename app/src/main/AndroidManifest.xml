@@ -20,8 +20,14 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.atividade.AtividadeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <service
+            android:name=".service.ConectarBluetoothService"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity
+            android:name=".ui.atividade.AtividadeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.perfil.PerfilActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -29,7 +35,8 @@
             android:name=".ui.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.conexaobluetooth.ConexaoBluetoothActivity" />
-        <activity android:name=".ui.visualizacao.VisualizacaoActivity"
+        <activity
+            android:name=".ui.visualizacao.VisualizacaoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.historico.HistoricoActivity"
