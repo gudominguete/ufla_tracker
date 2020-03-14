@@ -179,7 +179,7 @@
             app:layout_constraintTop_toBottomOf="@id/label_batimentos_cardiacos"
             android:layout_width="match_parent"
             android:layout_height="200dip"
-            android:id="@+id/graph"/>
+            android:id="@+id/graph_atividade"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -224,12 +224,14 @@
         app:layout_constraintEnd_toStartOf="@+id/botao_parar_atividade">
 
         <ImageView
+            android:id="@+id/imagem_parar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_pause" />
 
         <TextView
+            android:id="@+id/texto_botao_pausar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/robotobold"
@@ -237,6 +239,7 @@
             android:textAlignment="center"
             android:textColor="@color/white" />
     </LinearLayout>
+
 
     <LinearLayout
         android:visibility="gone"

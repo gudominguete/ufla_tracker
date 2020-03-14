@@ -4,23 +4,32 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
-import android.util.Log
+import android.os.SystemClock
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.LineGraphSeries
 import com.ufla.gustavo.uflatracker.R
 import com.ufla.gustavo.uflatracker.service.ConectarBluetoothService
 import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_atividade.*
-import kotlinx.android.synthetic.main.activity_historico.*
-import kotlin.random.Random
 
 class AtividadeActivity : AppCompatActivity() {
 
-    private lateinit var conectarBluetoothService: ConectarBluetoothService
+    private var conectarBluetoothService: ConectarBluetoothService? = null
     private var status = false
+    private var iniciado = false
+    private var lista = mutableListOf<DataPoint>()
+    private var listaRegistroAtividade = mutableListOf<Int>()
+    private var valor_minimo = 12000
+    private var valor_maximo = 0
+    private var valor_medio = 0
+    private var contador = 51
+    private var mLastStopTime: Long = 0
 
     private var handler = Handler()
 
@@ -30,9 +39,7 @@ class AtividadeActivity : AppCompatActivity() {
             conectarBluetoothService = binder.service
             status = true
         }
-
         override fun onServiceDisconnected(name: ComponentName) {
-
         }
     }
 
@@ -41,6 +48,26 @@ class AtividadeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_atividade)
         prepararClickListeners()
         iniciarHeader()
+        prepararLista()
+        prepararService()
+        prepararDadosGrafico()
+    }
+
+    private fun prepararLista() {
+        for (i in 1..50){
+
+            lista.add(DataPoint(i.toDouble(), 0.toDouble()))
+        }
+    }
+
+    private fun prepararDadosGrafico() {
+        val graph = findViewById(R.id.graph_atividade) as GraphView
+        val series = LineGraphSeries(lista.toTypedArray())
+        graph.addSeries(series)
+    }
+
+    private fun prepararService() {
+
         handler.postDelayed(myRunnable, 100)
         val intent = Intent(this, ConectarBluetoothService::class.java)
         bindService(intent, sc, Context.BIND_AUTO_CREATE)
@@ -61,19 +88,68 @@ class AtividadeActivity : AppCompatActivity() {
         botao_iniciar_atividade.setOnClickListener {
             iniciarAtividade()
         }
+        botao_pausar_atividade.setOnClickListener {
+            pausarAtividade()
+        }
+    }
+
+    private fun pausarAtividade() {
+        this.iniciado = !iniciado
+        if (!iniciado){
+            mLastStopTime = SystemClock.elapsedRealtime() - valor_tempo.getBase()
+            valor_tempo.stop()
+        } else {
+            valor_tempo.setBase( SystemClock.elapsedRealtime() - mLastStopTime)
+            valor_tempo.start()
+        }
+        mudarLayoutAtividade()
+    }
+
+    private fun mudarLayoutAtividade(){
+        if(!iniciado){
+            imagem_parar.setImageDrawable(getDrawable(R.drawable.ic_play_arrow))
+            texto_botao_pausar.text = "Iniciar"
+            botao_pausar_atividade.setBackgroundResource(R.drawable.bg_botao_iniciar)
+        } else {
+
+            imagem_parar.setImageDrawable(getDrawable(R.drawable.ic_pause))
+            texto_botao_pausar.text = "Pausar"
+            botao_pausar_atividade.setBackgroundResource(R.drawable.bg_botao_pausar)
+        }
     }
 
     private fun iniciarAtividade() {
         botao_iniciar_atividade.visibility = View.GONE
         botao_pausar_atividade.visibility = View.VISIBLE
         botao_parar_atividade.visibility = View.VISIBLE
+
+        if ( mLastStopTime == 0L )
+            valor_tempo.setBase( SystemClock.elapsedRealtime() )
+        valor_tempo.start()
+        iniciado = true
     }
 
 
     var myRunnable: Runnable = object : Runnable {
         override fun run() {
-            if(status){
-                valor_batimentos_cardiacos.text = conectarBluetoothService.getValorAtual().toString()
+            if(status && conectarBluetoothService != null){
+                var valorAtual = conectarBluetoothService!!.getValorAtual()
+                valor_batimentos_cardiacos.text = valorAtual.toString()
+                if(iniciado){
+                    lista.removeAt(0)
+                    if(valorAtual < valor_minimo){
+                        valor_minimo = valorAtual
+                    }
+                    if(valorAtual > valor_maximo){
+                        valor_maximo = valorAtual
+                    }
+                    valor_medio += valorAtual
+
+                    lista.add(DataPoint(contador.toDouble(), valorAtual.toDouble()))
+                    graph_atividade.removeAllSeries()
+                    graph_atividade.addSeries(LineGraphSeries(lista.toTypedArray()))
+                    contador++
+                }
             }
 
             handler.postDelayed(this, 1000)
