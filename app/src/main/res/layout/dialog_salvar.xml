@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="300dp"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/robotobold"
+            android:textSize="14sp"
+            android:text="Preencha o nome que você quer dar para a atividade"
+            android:textColor="@color/loginPrincipalBG"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="Nome *"
+            android:textColor="@color/loginPrincipalBG"
+            android:fontFamily="@font/robotobold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/edit_valor_nome_atividade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/texto_erro_nome_atividade"
+            android:textColor="@color/red"
+            android:text="O campo nome não foi preenchido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text_cancelar_atividade"
+                android:layout_weight="1"
+                android:fontFamily="@font/robotoregular"
+                android:text="Cancelar"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:layout_weight="1"
+                android:layout_gravity="right"
+                android:id="@+id/btn_enviar_atividade"
+                android:text="Enviar"
+                android:backgroundTint="@color/loginPrincipalBG"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                tools:ignore="RtlHardcoded" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

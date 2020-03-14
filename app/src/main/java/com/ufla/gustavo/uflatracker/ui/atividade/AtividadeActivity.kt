@@ -1,22 +1,27 @@
 package com.ufla.gustavo.uflatracker.ui.atividade
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.app.Dialog
+import android.content.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import android.os.SystemClock
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.ufla.gustavo.uflatracker.R
+import com.ufla.gustavo.uflatracker.TrackerApplication
+import com.ufla.gustavo.uflatracker.entity.Atividade
+import com.ufla.gustavo.uflatracker.entity.RegistroAtividade
 import com.ufla.gustavo.uflatracker.service.ConectarBluetoothService
 import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_atividade.*
+import java.util.*
 
 class AtividadeActivity : AppCompatActivity() {
 
@@ -55,7 +60,6 @@ class AtividadeActivity : AppCompatActivity() {
 
     private fun prepararLista() {
         for (i in 1..50){
-
             lista.add(DataPoint(i.toDouble(), 0.toDouble()))
         }
     }
@@ -91,6 +95,43 @@ class AtividadeActivity : AppCompatActivity() {
         botao_pausar_atividade.setOnClickListener {
             pausarAtividade()
         }
+        botao_parar_atividade.setOnClickListener {
+            pararAtividade()
+        }
+    }
+
+    private fun pararAtividade() {
+        mLastStopTime = SystemClock.elapsedRealtime() - valor_tempo.getBase()
+        valor_tempo.stop()
+        iniciado = false
+        mudarLayoutAtividade()
+        var dialog = SalvarDialog(this){
+            handler.removeCallbacks(myRunnable)
+            valor_medio = valor_medio/ listaRegistroAtividade.size
+            var atividade = Atividade(null, Calendar.getInstance() , it, valor_maximo.toDouble(), valor_minimo.toDouble(), valor_medio.toDouble())
+            atividade.id = TrackerApplication.database?.atividadeDao()?.insertOrUpdateAtividades(atividade)
+            listaRegistroAtividade.forEach {
+
+                TrackerApplication.database?.registroAtividadeDao()?.insertOrUpdateRegistrosAtividades(
+                    RegistroAtividade(null, it,atividade.id!!)
+                )
+            }
+            chamarAlertaSucesso()
+        }
+        dialog.show()
+    }
+
+    private fun chamarAlertaSucesso(){
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage("Atividade salva com sucesso!")
+            .setCancelable(false)
+            .setPositiveButton("Ok", DialogInterface.OnClickListener {
+                    dialog, id -> finish()
+            })
+
+        val alert = dialogBuilder.create()
+        alert.setTitle("Sucesso")
+        alert.show()
     }
 
     private fun pausarAtividade() {
@@ -149,9 +190,9 @@ class AtividadeActivity : AppCompatActivity() {
                     graph_atividade.removeAllSeries()
                     graph_atividade.addSeries(LineGraphSeries(lista.toTypedArray()))
                     contador++
+                    listaRegistroAtividade.add(valorAtual)
                 }
             }
-
             handler.postDelayed(this, 1000)
         }
     }
