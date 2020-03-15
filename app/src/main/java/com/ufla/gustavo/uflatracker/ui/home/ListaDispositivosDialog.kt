@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -100,8 +101,6 @@ class ListaDispositivosDialog (activity: Activity, funcaoConectar: (BluetoothDev
     var myRunnable: Runnable = object : Runnable {
         override fun run() {
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-//            var btName = prefs.getString("pref_bt_name", null)
-//            var btAddress = prefs.getString("pref_bt_address", null)
             var conectado = prefs.getBoolean("conectado", false)
             if(conectado){
                 dismiss()
@@ -156,4 +155,5 @@ class ListaDispositivosDialog (activity: Activity, funcaoConectar: (BluetoothDev
             )
         }
     }
+
 }

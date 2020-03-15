@@ -30,7 +30,7 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
     private var btProviderName: String? = null
     var bluetoothDevice :BluetoothDevice? = null
     private lateinit var activity: Activity
-    private var conectado = false
+    var conectado = false
 
     override fun onOpenResult(ok: Boolean) {
     }
