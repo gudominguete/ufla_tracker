@@ -39,6 +39,8 @@ class HomeActivity : AppCompatActivity() {
 
         override fun onServiceDisconnected(name: ComponentName) {
 
+            status = false
+            conectarBluetoothService = null
         }
     }
 
@@ -104,9 +106,17 @@ class HomeActivity : AppCompatActivity() {
                 layout_batimento_home.visibility = View.VISIBLE
                 var valorAtual = conectarBluetoothService!!.getValorAtual()
                 valor_batimentos_cardiacos_home.text = valorAtual.toString()
+                handler.postDelayed(this, 1000)
+            } else {
+                layout_conectar_dispositivo.visibility = View.VISIBLE
+                mensagem_nao_conectado.visibility = View.VISIBLE
+                aparelho_conectado.visibility = View.GONE
+                valor_nome_bluetooth.text = ""
+                layout_batimento_home.visibility = View.GONE
+                var valorAtual = 0
+                valor_batimentos_cardiacos_home.text = ""
             }
 
-            handler.postDelayed(this, 1000)
         }
     }
 

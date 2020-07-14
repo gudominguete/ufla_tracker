@@ -44,8 +44,13 @@ class AtividadeActivity : AppCompatActivity() {
             val binder = service as ConectarBluetoothService.ConectarBluetoothBinder
             conectarBluetoothService = binder.service
             status = true
+            esconderDesconexao()
         }
         override fun onServiceDisconnected(name: ComponentName) {
+
+            conectarBluetoothService = null
+            status = false
+            exibirDesconexao()
         }
     }
 
@@ -57,6 +62,14 @@ class AtividadeActivity : AppCompatActivity() {
         prepararLista()
         prepararService()
         prepararDadosGrafico()
+    }
+
+    private fun esconderDesconexao(){
+        Log.i("Teste", "escondeu desconexao")
+    }
+
+    private fun exibirDesconexao(){
+        Log.i("Teste 2 ", "exibiu desconexao")
     }
 
     private fun prepararLista() {
