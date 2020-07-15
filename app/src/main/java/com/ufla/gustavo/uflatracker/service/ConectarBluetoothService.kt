@@ -49,7 +49,8 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
     }
 
     override fun onDisconnectResult(disconnectOK: Boolean) {
-
+        Log.i("erro", "desconectou")
+        conectado = false
     }
 
     override fun onCloseResult(closeOK: Boolean) {

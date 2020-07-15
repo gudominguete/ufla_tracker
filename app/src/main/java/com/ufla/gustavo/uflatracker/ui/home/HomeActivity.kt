@@ -97,16 +97,15 @@ class HomeActivity : AppCompatActivity() {
 
     var myRunnable: Runnable = object : Runnable {
         override fun run() {
-            if(status){
+            if(status && conectarBluetoothService != null && conectarBluetoothService!!.conectado){
                 conectarBluetoothService?.getValorAtual()
                 layout_conectar_dispositivo.visibility = View.GONE
                 mensagem_nao_conectado.visibility = View.GONE
                 aparelho_conectado.visibility = View.VISIBLE
                 valor_nome_bluetooth.text = bluetoothDeviceSelecionado.name
                 layout_batimento_home.visibility = View.VISIBLE
-                var valorAtual = conectarBluetoothService!!.getValorAtual()
+                var valorAtual = conectarBluetoothService?.getValorAtual()
                 valor_batimentos_cardiacos_home.text = valorAtual.toString()
-                handler.postDelayed(this, 1000)
             } else {
                 layout_conectar_dispositivo.visibility = View.VISIBLE
                 mensagem_nao_conectado.visibility = View.VISIBLE
@@ -115,7 +114,9 @@ class HomeActivity : AppCompatActivity() {
                 layout_batimento_home.visibility = View.GONE
                 var valorAtual = 0
                 valor_batimentos_cardiacos_home.text = ""
+                //TODO: mostrar mensagem de desconectado
             }
+            handler.postDelayed(this, 500)
 
         }
     }

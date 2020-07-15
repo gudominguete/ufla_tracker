@@ -187,7 +187,7 @@ class AtividadeActivity : AppCompatActivity() {
 
     var myRunnable: Runnable = object : Runnable {
         override fun run() {
-            if(status && conectarBluetoothService != null){
+            if(status && conectarBluetoothService != null && conectarBluetoothService!!.conectado){
                 var valorAtual = conectarBluetoothService!!.getValorAtual()
                 valor_batimentos_cardiacos.text = valorAtual.toString()
                 if(iniciado){
@@ -206,6 +206,8 @@ class AtividadeActivity : AppCompatActivity() {
                     contador++
                     listaRegistroAtividade.add(valorAtual)
                 }
+            } else {
+                Toast.makeText(this@AtividadeActivity, "Foi desconectado", Toast.LENGTH_LONG).show()
             }
             handler.postDelayed(this, 1000)
         }
