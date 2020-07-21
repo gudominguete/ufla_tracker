@@ -44,7 +44,6 @@ class AtividadeActivity : AppCompatActivity() {
             val binder = service as ConectarBluetoothService.ConectarBluetoothBinder
             conectarBluetoothService = binder.service
             status = true
-            esconderDesconexao()
         }
         override fun onServiceDisconnected(name: ComponentName) {
 
@@ -64,17 +63,55 @@ class AtividadeActivity : AppCompatActivity() {
         prepararDadosGrafico()
     }
 
-    private fun esconderDesconexao(){
-        Log.i("Teste", "escondeu desconexao")
-    }
 
     private fun exibirDesconexao(){
-        Log.i("Teste 2 ", "exibiu desconexao")
+
+        // Late initialize an alert dialog object
+        lateinit var dialog:AlertDialog
+
+        // Initialize a new instance of alert dialog builder object
+        val builder = AlertDialog.Builder(this)
+
+        // Set a title for alert dialog
+        builder.setTitle("O equipamento foi desconectado")
+
+        // Set a message for alert dialog
+        builder.setMessage("O equipamento foi desconectado, você deseja tentar encerrar a atividade?")
+
+
+        // On click listener for dialog buttons
+        val dialogClickListener = DialogInterface.OnClickListener{_,which ->
+            when(which){
+                DialogInterface.BUTTON_POSITIVE -> pararAtividade()
+                DialogInterface.BUTTON_NEUTRAL -> reconectar()
+            }
+        }
+
+        // Set the alert dialog positive/yes button
+        builder.setPositiveButton("Sim",dialogClickListener)
+
+        // Set the alert dialog neutral/cancel button
+        builder.setNeutralButton("Não",dialogClickListener)
+
+
+        // Initialize the AlertDialog using builder object
+        dialog = builder.create()
+
+        // Finally, display the alert dialog
+        dialog.show()
     }
 
     private fun prepararLista() {
         for (i in 1..50){
             lista.add(DataPoint(i.toDouble(), 0.toDouble()))
+        }
+    }
+
+    private fun reconectar(){
+        if(conectarBluetoothService != null){
+            conectarBluetoothService?.connect(conectarBluetoothService!!.bluetoothDevice!!)
+        } else {
+            Toast.makeText(this@AtividadeActivity, "Negative/No button clicked.", Toast.LENGTH_LONG).show()
         }
     }
 

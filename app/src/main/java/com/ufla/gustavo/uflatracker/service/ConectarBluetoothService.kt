@@ -31,6 +31,7 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
     var bluetoothDevice :BluetoothDevice? = null
     private lateinit var activity: Activity
     var conectado = false
+    var foiDesconectado = false
 
     override fun onOpenResult(ok: Boolean) {
     }
@@ -87,7 +88,7 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
         connect(bluetoothDevice)
     }
 
-    private fun connect(bluetoothDevice: BluetoothDevice) {
+    fun connect(bluetoothDevice: BluetoothDevice) {
         stopTimer()
         if (hrProvider == null || bluetoothDevice.name == null || bluetoothDevice.address == null) {
             return
@@ -105,6 +106,12 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
         }
         Log.i("TEste",hrProvider?.getProviderName() + ".connect(" + name + ")")
         hrProvider?.connect(HRDeviceRef.create(btProviderName, bluetoothDevice.name, bluetoothDevice.address))
+    }
+
+    fun disconnect(){
+        hrProvider?.disconnect()
+        hrProvider?.close()
+        foiDesconectado = true
     }
 
     private fun load() {

@@ -10,6 +10,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -28,6 +29,7 @@ class HomeActivity : AppCompatActivity() {
     private var conectarBluetoothService: ConectarBluetoothService? = null
     private var status = false
     private var handler = Handler()
+
 
     private val sc = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
@@ -64,7 +66,6 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
         botao_historico.setOnClickListener {
-
             var intent = Intent(this, HistoricoActivity::class.java)
             startActivity(intent)
         }
@@ -79,6 +80,9 @@ class HomeActivity : AppCompatActivity() {
         }
         botao_conectar_bluetooth.setOnClickListener {
             checkBTPermissions()
+        }
+        desconectar_equipamento.setOnClickListener {
+            conectarBluetoothService?.disconnect()
         }
     }
 
@@ -106,15 +110,16 @@ class HomeActivity : AppCompatActivity() {
                 layout_batimento_home.visibility = View.VISIBLE
                 var valorAtual = conectarBluetoothService?.getValorAtual()
                 valor_batimentos_cardiacos_home.text = valorAtual.toString()
-            } else {
+            } else if(conectarBluetoothService != null && conectarBluetoothService!!.foiDesconectado){
+
                 layout_conectar_dispositivo.visibility = View.VISIBLE
                 mensagem_nao_conectado.visibility = View.VISIBLE
                 aparelho_conectado.visibility = View.GONE
                 valor_nome_bluetooth.text = ""
                 layout_batimento_home.visibility = View.GONE
-                var valorAtual = 0
                 valor_batimentos_cardiacos_home.text = ""
-                //TODO: mostrar mensagem de desconectado
+                Toast.makeText(this@HomeActivity, "O aparelho foi desconectado", Toast.LENGTH_LONG).show()
+                conectarBluetoothService?.foiDesconectado = false
             }
             handler.postDelayed(this, 500)
 
@@ -198,6 +203,8 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     private fun abrirListaDispostivos() {
 
