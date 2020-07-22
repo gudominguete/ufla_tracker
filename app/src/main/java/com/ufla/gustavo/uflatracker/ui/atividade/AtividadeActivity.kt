@@ -109,6 +109,7 @@ class AtividadeActivity : AppCompatActivity() {
 
     private fun reconectar(){
         if(conectarBluetoothService != null){
+            conectarBluetoothService!!.load()
             conectarBluetoothService?.connect(conectarBluetoothService!!.bluetoothDevice!!)
         } else {
             Toast.makeText(this@AtividadeActivity, "Negative/No button clicked.", Toast.LENGTH_LONG).show()

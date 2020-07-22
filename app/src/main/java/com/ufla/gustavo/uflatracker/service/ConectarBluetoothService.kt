@@ -114,7 +114,7 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
         foiDesconectado = true
     }
 
-    private fun load() {
+    fun load() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         btProviderName = prefs.getString("pref_bt_provider", null)

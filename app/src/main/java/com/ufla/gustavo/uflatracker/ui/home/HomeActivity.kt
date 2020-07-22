@@ -210,8 +210,14 @@ class HomeActivity : AppCompatActivity() {
 
         val dialog = ListaDispositivosDialog(this){
             bluetoothDeviceSelecionado = it
-            val intent = Intent(this, ConectarBluetoothService::class.java)
-            bindService(intent, sc, Context.BIND_AUTO_CREATE)
+            if(conectarBluetoothService == null) {
+                val intent = Intent(this, ConectarBluetoothService::class.java)
+                bindService(intent, sc, Context.BIND_AUTO_CREATE)
+
+            }else {
+                conectarBluetoothService!!.load()
+                conectarBluetoothService!!.connect(it)
+            }
             status = true
             handler.postDelayed(myRunnable, 100)
         }
