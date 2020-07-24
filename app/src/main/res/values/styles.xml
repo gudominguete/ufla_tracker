@@ -43,4 +43,17 @@
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/robotoregular</item>
     </style>
+    <style name="FundoBackground">
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">#CCFFFFFF</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="TextoProgressBar">
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:clickable">false</item>
+    </style>
 </resources>
