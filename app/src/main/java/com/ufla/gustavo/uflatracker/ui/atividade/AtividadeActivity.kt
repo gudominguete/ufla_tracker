@@ -243,11 +243,13 @@ class AtividadeActivity : AppCompatActivity() {
                     graph_atividade.addSeries(LineGraphSeries(lista.toTypedArray()))
                     contador++
                     listaRegistroAtividade.add(valorAtual)
+
+                    handler.postDelayed(this, 1000)
                 }
-            } else {
-                Toast.makeText(this@AtividadeActivity, "Foi desconectado", Toast.LENGTH_LONG).show()
+            } else if(!conectarBluetoothService!!.conectado  && conectarBluetoothService!!.foiDesconectado) {
+                exibirDesconexao()
+                handler.postDelayed(this, 3000)
             }
-            handler.postDelayed(this, 1000)
         }
     }
 }
