@@ -1,6 +1,7 @@
 package com.ufla.gustavo.uflatracker.ui.atividade
 
 import android.app.Dialog
+import android.bluetooth.BluetoothDevice
 import android.content.*
 import android.os.Bundle
 import android.os.Handler
@@ -37,6 +38,8 @@ class AtividadeActivity : AppCompatActivity() {
     private var contador = 51
     private var mLastStopTime: Long = 0
 
+    var bluetoothConectado: BluetoothDevice? =null
+
     private var handler = Handler()
 
     private val sc = object : ServiceConnection {
@@ -61,6 +64,7 @@ class AtividadeActivity : AppCompatActivity() {
         prepararLista()
         prepararService()
         prepararDadosGrafico()
+
     }
 
 
@@ -83,15 +87,11 @@ class AtividadeActivity : AppCompatActivity() {
         val dialogClickListener = DialogInterface.OnClickListener{_,which ->
             when(which){
                 DialogInterface.BUTTON_POSITIVE -> pararAtividade()
-                DialogInterface.BUTTON_NEUTRAL -> reconectar()
             }
         }
 
         // Set the alert dialog positive/yes button
         builder.setPositiveButton("Sim",dialogClickListener)
-
-        // Set the alert dialog neutral/cancel button
-        builder.setNeutralButton("Não",dialogClickListener)
 
 
         // Initialize the AlertDialog using builder object
@@ -220,6 +220,7 @@ class AtividadeActivity : AppCompatActivity() {
             valor_tempo.setBase( SystemClock.elapsedRealtime() )
         valor_tempo.start()
         iniciado = true
+        bluetoothConectado = conectarBluetoothService!!.bluetoothDevice
     }
 
 
@@ -247,9 +248,13 @@ class AtividadeActivity : AppCompatActivity() {
                     handler.postDelayed(this, 1000)
                 }
             } else if(!conectarBluetoothService!!.conectado  && conectarBluetoothService!!.foiDesconectado) {
+                pausarAtividade()
                 exibirDesconexao()
                 handler.postDelayed(this, 3000)
+                conectarBluetoothService!!.foiDesconectado = false
             }
+
+            handler.postDelayed(this,1000)
         }
     }
 }

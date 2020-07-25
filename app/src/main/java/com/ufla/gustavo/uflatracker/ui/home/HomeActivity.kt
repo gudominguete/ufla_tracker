@@ -53,6 +53,12 @@ class HomeActivity : AppCompatActivity() {
         iniciarHeader()
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        handler.postDelayed(myRunnable, 100)
+    }
+
+
     private fun iniciarHeader() {
         val sharedPref = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE)
         val nome = sharedPref.getString(Constantes.NOME, "")
@@ -71,7 +77,7 @@ class HomeActivity : AppCompatActivity() {
         }
         botao_iniciar_home.setOnClickListener {
             if(status){
-
+                handler.removeCallbacks(myRunnable)
                 var intent = Intent(this, AtividadeActivity::class.java)
                 startActivity(intent)
             } else {
@@ -120,6 +126,13 @@ class HomeActivity : AppCompatActivity() {
                 valor_batimentos_cardiacos_home.text = ""
                 Toast.makeText(this@HomeActivity, "O aparelho foi desconectado", Toast.LENGTH_LONG).show()
                 conectarBluetoothService?.foiDesconectado = false
+            } else if(conectarBluetoothService != null && !conectarBluetoothService!!.conectado){
+                layout_conectar_dispositivo.visibility = View.VISIBLE
+                mensagem_nao_conectado.visibility = View.VISIBLE
+                aparelho_conectado.visibility = View.GONE
+                valor_nome_bluetooth.text = ""
+                layout_batimento_home.visibility = View.GONE
+                valor_batimentos_cardiacos_home.text = ""
             }
             handler.postDelayed(this, 500)
 
