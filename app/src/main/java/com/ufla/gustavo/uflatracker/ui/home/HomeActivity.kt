@@ -10,6 +10,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -58,6 +59,18 @@ class HomeActivity : AppCompatActivity() {
         handler.postDelayed(myRunnable, 100)
     }
 
+    private fun showLoading(){
+        window?.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        )
+        progressBar?.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading(){
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        progressBar?.visibility = View.GONE
+    }
 
     private fun iniciarHeader() {
         val sharedPref = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE)
@@ -108,6 +121,9 @@ class HomeActivity : AppCompatActivity() {
     var myRunnable: Runnable = object : Runnable {
         override fun run() {
             if(status && conectarBluetoothService != null && conectarBluetoothService!!.conectado){
+                if(progressBar.visibility.equals(View.VISIBLE)){
+                    hideLoading()
+                }
                 conectarBluetoothService?.getValorAtual()
                 layout_conectar_dispositivo.visibility = View.GONE
                 mensagem_nao_conectado.visibility = View.GONE
@@ -230,6 +246,7 @@ class HomeActivity : AppCompatActivity() {
             }else {
                 conectarBluetoothService!!.load()
                 conectarBluetoothService!!.connect(it)
+                showLoading()
             }
             status = true
             handler.postDelayed(myRunnable, 100)
