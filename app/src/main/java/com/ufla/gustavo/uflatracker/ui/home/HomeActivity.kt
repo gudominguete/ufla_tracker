@@ -30,6 +30,9 @@ class HomeActivity : AppCompatActivity() {
     private var conectarBluetoothService: ConectarBluetoothService? = null
     private var status = false
     private var handler = Handler()
+    private var loadingHandler = Handler()
+    private var begin : Long = 0
+    private var end : Long = 0
 
 
     private val sc = object : ServiceConnection {
@@ -52,6 +55,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         configurarClickListeners()
         iniciarHeader()
+        showLoading()
     }
 
     override fun onRestart() {
@@ -65,11 +69,14 @@ class HomeActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
         )
         progressBar?.visibility = View.VISIBLE
+        begin = System.currentTimeMillis()
+        loadingHandler.postDelayed(loadingRunnable, 100)
     }
 
     private fun hideLoading(){
         window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         progressBar?.visibility = View.GONE
+        loadingHandler.removeCallbacks(loadingRunnable)
     }
 
     private fun iniciarHeader() {
@@ -116,6 +123,16 @@ class HomeActivity : AppCompatActivity() {
         val alert = dialogBuilder.create()
         alert.setTitle("Atenção")
         alert.show()
+    }
+
+    var loadingRunnable: Runnable = object : Runnable{
+        override fun run() {
+            end = System.currentTimeMillis()
+            if((end-begin)<10000)
+                loadingHandler.postDelayed(this, 100)
+            else
+                hideLoading()
+        }
     }
 
     var myRunnable: Runnable = object : Runnable {
