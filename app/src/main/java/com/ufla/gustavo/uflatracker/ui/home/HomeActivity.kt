@@ -55,7 +55,6 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         configurarClickListeners()
         iniciarHeader()
-        showLoading()
     }
 
     override fun onRestart() {
@@ -263,8 +262,9 @@ class HomeActivity : AppCompatActivity() {
             }else {
                 conectarBluetoothService!!.load()
                 conectarBluetoothService!!.connect(it)
-                showLoading()
             }
+
+            showLoading()
             status = true
             handler.postDelayed(myRunnable, 100)
         }
