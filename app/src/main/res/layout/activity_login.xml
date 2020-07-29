@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineBottom"
@@ -51,13 +51,150 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.8" />
 
-    <Button
-        style="@style/botaoEntrarLogin"
-        android:id="@+id/botao_entrar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline"
+            app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingTop="30dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/robotobold"
+                android:textSize="14sp"
+                android:text="Preencha os campos abaixo para realizar o seu cadastro"
+                android:textColor="@color/loginPrincipalBG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="Nome *"
+                android:textColor="@color/loginPrincipalBG"
+                android:fontFamily="@font/robotobold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/edit_valor_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/texto_erro_nome"
+                android:textColor="@color/red"
+                android:text="O campo nome não foi preenchido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textColor="@color/loginPrincipalBG"
+                android:fontFamily="@font/robotobold"
+                android:text="Idade *"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:inputType="number"
+                android:id="@+id/edit_valor_idade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/texto_erro_idade"
+                android:textColor="@color/red"
+                android:text="O campo idade não foi preenchido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textColor="@color/loginPrincipalBG"
+                android:fontFamily="@font/robotobold"
+                android:text="Peso *"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:digits="0123456789,"
+                android:inputType="numberDecimal"
+                android:id="@+id/edit_valor_peso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/texto_erro_peso"
+                android:textColor="@color/red"
+                android:text="O campo peso não foi preenchido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textColor="@color/loginPrincipalBG"
+                android:fontFamily="@font/robotobold"
+                android:text="Altura *"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:digits="0123456789,"
+                android:inputType="numberDecimal"
+                android:id="@+id/edit_valor_altura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/texto_erro_altura"
+                android:textColor="@color/red"
+                android:text="O campo altura não foi preenchido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="@color/loginPrincipalBG"
+                android:text="* O campo é obrigatório"
+                android:layout_width="wrap_content"
+                android:fontFamily="@font/robotobold"
+                android:layout_height="wrap_content"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    style="@style/Theme.MaterialComponents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:contentDescription="Entrar"
+                    android:text="Entrar"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/colorAccent"
+                    app:icon="@drawable/ic_exit_to_app"
+                    app:iconTint="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+<!--    <Button-->
+<!--        style="@style/botaoEntrarLogin"-->
+<!--        android:id="@+id/botao_entrar"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
