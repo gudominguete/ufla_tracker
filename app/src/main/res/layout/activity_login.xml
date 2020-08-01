@@ -203,7 +203,7 @@
                     android:id="@+id/edit_valor_altura"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789,"
+                    android:digits="0123456789"
                     android:inputType="numberDecimal"
                     app:layout_constraintEnd_toStartOf="@id/labelcm"
                     app:layout_constraintStart_toStartOf="parent"
@@ -243,13 +243,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/botao_voltar_cadastro"
+                    style="@style/Theme.MaterialComponents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/cinza"
+                    android:contentDescription="voltar"
+                    android:text="Voltar"
+                    android:textColor="@color/black"
+                    app:icon="@drawable/ic_chevron_left"
+                    app:iconTint="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/botao_cadastrar"
                     style="@style/Theme.MaterialComponents"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
                     android:backgroundTint="@color/colorAccent"
                     android:contentDescription="Cadastrar"
                     android:text="Cadastrar"
@@ -262,6 +274,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="visible"
             android:id="@+id/layout_cpf"
             android:orientation="vertical"
             android:padding="15dp"

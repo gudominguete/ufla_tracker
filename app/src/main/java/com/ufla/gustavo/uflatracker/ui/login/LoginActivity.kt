@@ -1,5 +1,6 @@
 package com.ufla.gustavo.uflatracker.ui.login
 
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -8,7 +9,9 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.set
 import com.ufla.gustavo.uflatracker.R
 import com.ufla.gustavo.uflatracker.TrackerApplication
 import com.ufla.gustavo.uflatracker.utils.KeyboardUtils
@@ -22,6 +25,7 @@ import java.util.*
 class LoginActivity : AppCompatActivity() {
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -43,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
         prepararEventListenerPeso()
         prepararEventListenerAltura()
         prepararClickListenerEntrar()
+        prepararClickListenerVoltar()
 
 
         /*botao_entrar.setOnClickListener{
@@ -59,6 +64,49 @@ class LoginActivity : AppCompatActivity() {
             }
             dialog.show()
         }*/
+    }
+
+    private fun prepararClickListenerVoltar() {
+        botao_voltar_cadastro.setOnClickListener {
+            if(verificaExisteDadosFormulario()){
+                abrirModalFormularioPreenchido()
+            } else{
+                voltarFormCpf()
+            }
+        }
+
+    }
+
+    private fun abrirModalFormularioPreenchido(){
+            val dialogBuilder = AlertDialog.Builder(this)
+            dialogBuilder.setMessage("Existe informações preenchidas no formulário. Se cancelar, os dados serão perdidos. Deseja continuar?")
+                .setCancelable(false)
+                .setPositiveButton("Sim", DialogInterface.OnClickListener {
+                        dialog, id -> voltarFormCpf()
+                })
+                .setNegativeButton("Não", {
+                    dialog, id->
+                })
+
+            val alert = dialogBuilder.create()
+            alert.setTitle("Atenção")
+            alert.show()
+
+    }
+
+    private fun verificaExisteDadosFormulario(): Boolean {
+        return !edit_valor_altura.text.isNullOrEmpty() ||
+                !edit_valor_idade.rawText.isNullOrEmpty() ||
+                !edit_valor_nome.text.isNullOrEmpty() ||
+                !edit_valor_peso.text.isNullOrEmpty()
+    }
+
+    private fun voltarFormCpf() {
+        resetarErros()
+        layout_cpf.visibility = View.VISIBLE
+        layout_formulario.visibility = View.GONE
+        edit_valor_cpf.setText("")
+        KeyboardUtils.hideKeyboardFrom(this.applicationContext,  botao_login_cpf)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -174,14 +222,58 @@ class LoginActivity : AppCompatActivity() {
             texto_erro_nome.visibility = View.VISIBLE
             valido = false
         }
+        valido = validarPeso() && valido
         valido = validarDataNascimento() && valido
-        if(edit_valor_peso.text.toString().isNullOrEmpty()){
-            texto_erro_peso.visibility = View.VISIBLE
+        valido = validarAltura() && valido
+        return valido
+    }
+
+    private fun validarPeso(): Boolean{
+        var peso = edit_valor_peso.text.toString()
+        var mensagemErro = ""
+        var valido = true
+        if(peso.isNullOrEmpty()){
             valido = false
+            mensagemErro = "O campo peso não foi preenchido"
+        } else {
+            try{
+                peso.replace(",", ".").toDouble()
+            } catch (exception: Exception){
+                valido = false
+                mensagemErro = "O valor informado não corresponde a um peso correto."
+            }
         }
-        if(edit_valor_altura.text.toString().isNullOrEmpty()){
-            texto_erro_altura.visibility = View.VISIBLE
+
+        if(!valido){
+            texto_erro_peso.text = mensagemErro
+            texto_erro_peso.visibility = View.VISIBLE
+        }
+        return valido
+    }
+
+    private fun validarAltura(): Boolean{
+        var altura = edit_valor_altura.text.toString()
+        var mensagemErro = ""
+        var valido = true
+        if(altura.isNullOrEmpty()){
             valido = false
+            mensagemErro = "O campo peso não foi preenchido"
+        } else {
+            try{
+                var altura = altura.toInt()
+                if(altura > 230){
+                    valido = false
+                    mensagemErro = "O valor informado não corresponde a uma altura correta."
+                }
+            } catch (exception: Exception){
+                valido = false
+                mensagemErro = "O valor informado não corresponde a uma altura correta."
+            }
+        }
+
+        if(!valido){
+            texto_erro_altura.text = mensagemErro
+            texto_erro_altura.visibility = View.VISIBLE
         }
         return valido
     }
