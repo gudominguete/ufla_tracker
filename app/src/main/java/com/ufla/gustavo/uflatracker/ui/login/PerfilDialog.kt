@@ -30,10 +30,10 @@ class PerfilDialog (context: Context, funcaoOk: ((usuario: Usuario)->Unit)): Dia
         btn_enviar.setOnClickListener {
             if(validarFormulario()){
 
-                funcaoOk(Usuario(edit_valor_nome.text.toString(),
-                    edit_valor_altura.text.toString(),
-                    edit_valor_idade.text.toString(),
-                    edit_valor_peso.text.toString()))
+//                funcaoOk(Usuario(edit_valor_nome.text.toString(),
+//                    edit_valor_altura.text.toString(),
+//                    edit_valor_idade.text.toString(),
+//                    edit_valor_peso.text.toString()))
             }
         }
     }
@@ -54,7 +54,7 @@ class PerfilDialog (context: Context, funcaoOk: ((usuario: Usuario)->Unit)): Dia
             valido = false
         }
         if(edit_valor_altura.text.toString().isNullOrEmpty()){
-            texto_erro_altura.visibility = View.VISIBLE
+            //texto_erro_altura.visibility = View.VISIBLE
             valido = false
         }
         return valido
@@ -64,6 +64,6 @@ class PerfilDialog (context: Context, funcaoOk: ((usuario: Usuario)->Unit)): Dia
         texto_erro_nome.visibility = View.GONE
         texto_erro_idade.visibility = View.GONE
         texto_erro_peso.visibility = View.GONE
-        texto_erro_altura.visibility = View.GONE
+        //texto_erro_altura.visibility = View.GONE
     }
 }

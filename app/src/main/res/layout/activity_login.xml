@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     android:background="@color/loginPrincipalBG"
     tools:context=".ui.login.LoginActivity">
 
@@ -18,23 +19,23 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView">
 
         <TextView
             android:id="@+id/texto_ufla"
+            style="@style/TextoTituloRegular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ufla"
-            style="@style/TextoTituloRegular"/>
+            android:text="@string/ufla" />
 
         <TextView
             android:id="@+id/texto_tracker"
+            style="@style/TextoTituloBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tracker"
-            style="@style/TextoTituloBold"/>
+            android:text="@string/tracker" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
@@ -52,141 +53,278 @@
         app:layout_constraintGuide_percent="0.8" />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:background="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline"
-            app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+        android:layout_margin="15dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_width="0dp">
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline">
+
         <LinearLayout
+            android:id="@+id/layout_formulario"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="15dp"
-            android:paddingTop="30dp"
-            android:paddingRight="15dp"
-            android:paddingBottom="15dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="15dp">
 
             <TextView
+                android:id="@+id/text_cpf_nao_encontrado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/robotobold"
-                android:textSize="14sp"
+                android:textColor="@color/loginPrincipalBG"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/robotobold"
                 android:text="Preencha os campos abaixo para realizar o seu cadastro"
                 android:textColor="@color/loginPrincipalBG"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textSize="14sp" />
+
             <TextView
-                android:layout_marginTop="10dp"
-                android:text="Nome *"
-                android:textColor="@color/loginPrincipalBG"
-                android:fontFamily="@font/robotobold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/robotobold"
+                android:text="Nome *"
+                android:textColor="@color/loginPrincipalBG" />
+
             <EditText
                 android:id="@+id/edit_valor_nome"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/texto_erro_nome"
-                android:textColor="@color/red"
-                android:text="O campo nome não foi preenchido"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
+
 
             <TextView
-                android:layout_marginTop="10dp"
-                android:textColor="@color/loginPrincipalBG"
-                android:fontFamily="@font/robotobold"
-                android:text="Idade *"
+                android:id="@+id/texto_erro_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O campo nome não foi preenchido"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <EditText
-                android:inputType="number"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/robotobold"
+                android:text="Data de nascimento *"
+                android:textColor="@color/loginPrincipalBG" />
+
+
+            <br.com.sapereaude.maskedEditText.MaskedEditText
                 android:id="@+id/edit_valor_idade"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                mask:allowed_chars="1234567890"
+                mask:mask="##/##/####" />
+
             <TextView
-                android:visibility="gone"
                 android:id="@+id/texto_erro_idade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O campo data de nascimento não foi preenchido"
                 android:textColor="@color/red"
-                android:text="O campo idade não foi preenchido"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:textColor="@color/loginPrincipalBG"
-                android:fontFamily="@font/robotobold"
-                android:text="Peso *"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <EditText
-                android:digits="0123456789,"
-                android:inputType="numberDecimal"
-                android:id="@+id/edit_valor_peso"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
                 android:visibility="gone"
-                android:id="@+id/texto_erro_peso"
-                android:textColor="@color/red"
-                android:text="O campo peso não foi preenchido"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_marginBottom="5dp" />
 
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/loginPrincipalBG"
+                android:fontFamily="@font/robotobold"
+                android:text="Peso * (Poderá ser alterado posteriormente)"
+                android:textColor="@color/loginPrincipalBG" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_valor_peso"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789,"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintEnd_toStartOf="@id/labelkg"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/labelkg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/robotobold"
+                    android:text="Kg"
+                    android:textColor="@color/loginPrincipalBG"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/texto_erro_peso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O campo peso não foi preenchido"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:layout_marginBottom="5dp"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/robotobold"
                 android:text="Altura *"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <EditText
-                android:digits="0123456789,"
-                android:inputType="numberDecimal"
-                android:id="@+id/edit_valor_altura"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/texto_erro_altura"
-                android:textColor="@color/red"
-                android:text="O campo altura não foi preenchido"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:textColor="@color/loginPrincipalBG"
-                android:text="* O campo é obrigatório"
-                android:layout_width="wrap_content"
-                android:fontFamily="@font/robotobold"
-                android:layout_height="wrap_content"/>
+                android:textColor="@color/loginPrincipalBG" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_valor_altura"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789,"
+                    android:inputType="numberDecimal"
+                    app:layout_constraintEnd_toStartOf="@id/labelcm"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/labelcm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/robotobold"
+                    android:text="cm"
+                    android:textColor="@color/loginPrincipalBG"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/texto_erro_altura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O campo altura não foi preenchido"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/robotobold"
+                android:layout_marginTop="5dp"
+                android:text="* O campo é obrigatório"
+                android:textColor="@color/loginPrincipalBG" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/botao_cadastrar"
                     style="@style/Theme.MaterialComponents"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:contentDescription="Entrar"
-                    android:text="Entrar"
-                    android:textColor="@color/white"
                     android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="Cadastrar"
+                    android:text="Cadastrar"
+                    android:textColor="@color/white"
                     app:icon="@drawable/ic_exit_to_app"
                     app:iconTint="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:ignore="MissingConstraints" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_cpf"
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/robotobold"
+                android:text="Digite o cpf para entrar no aplicativo:"
+                android:textColor="@color/loginPrincipalBG"
+                android:textSize="14sp" />
+            <br.com.sapereaude.maskedEditText.MaskedEditText
+                android:id="@+id/edit_valor_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                mask:allowed_chars="1234567890"
+                mask:mask="###.###.###-##" />
+            <TextView
+                android:id="@+id/texto_erro_cpf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O campo cpf não foi preenchido"
+                android:textColor="@color/red"
+                android:visibility="gone"
+                android:layout_marginBottom="5dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    style="@style/Theme.MaterialComponents"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:contentDescription="Entrar"
+                    android:text="Entrar"
+                    android:textColor="@color/white"
+                    app:icon="@drawable/ic_exit_to_app"
+                    app:iconTint="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="MissingConstraints"
+                    android:id="@+id/botao_login_cpf"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/robotobold"
+        android:text="Contado: gudominguete@gmail.com"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 <!--    <Button-->
 <!--        style="@style/botaoEntrarLogin"-->

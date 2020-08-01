@@ -8,13 +8,15 @@ import androidx.room.TypeConverters
 import com.ufla.gustavo.uflatracker.database.converter.TimestampConverter
 import com.ufla.gustavo.uflatracker.database.daos.AtividadeDao
 import com.ufla.gustavo.uflatracker.database.daos.RegistroAtividadeDao
+import com.ufla.gustavo.uflatracker.database.daos.UsuarioDao
 import com.ufla.gustavo.uflatracker.entity.Atividade
 import com.ufla.gustavo.uflatracker.entity.RegistroAtividade
+import com.ufla.gustavo.uflatracker.entity.Usuario
 
 private const val DATABASE = "notes"
 
 @Database(
-    entities = [RegistroAtividade::class, Atividade::class],
+    entities = [RegistroAtividade::class, Atividade::class, Usuario::class],
     version = 2,
     exportSchema = false
 )
@@ -23,6 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun registroAtividadeDao(): RegistroAtividadeDao
     abstract fun atividadeDao(): AtividadeDao
+    abstract fun usuarioDao(): UsuarioDao
 
 
     companion object {
