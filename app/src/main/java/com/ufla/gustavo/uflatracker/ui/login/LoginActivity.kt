@@ -1,6 +1,8 @@
 package com.ufla.gustavo.uflatracker.ui.login
 
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -11,16 +13,18 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.set
 import com.ufla.gustavo.uflatracker.R
 import com.ufla.gustavo.uflatracker.TrackerApplication
+import com.ufla.gustavo.uflatracker.entity.Usuario
+import com.ufla.gustavo.uflatracker.ui.home.HomeActivity
+import com.ufla.gustavo.uflatracker.utils.Constantes
 import com.ufla.gustavo.uflatracker.utils.KeyboardUtils
 import com.ufla.gustavo.uflatracker.utils.StringUtils
 import kotlinx.android.synthetic.main.activity_login.*
-import java.lang.Exception
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -48,22 +52,6 @@ class LoginActivity : AppCompatActivity() {
         prepararEventListenerAltura()
         prepararClickListenerEntrar()
         prepararClickListenerVoltar()
-
-
-        /*botao_entrar.setOnClickListener{
-            val dialog = PerfilDialog(this) {
-                var intent = Intent(this, HomeActivity::class.java)
-                val sharedPref = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                val editor = sharedPref.edit()
-                editor.putString(Constantes.NOME, it.nome)
-                editor.putString(Constantes.IDADE, it.idade)
-                editor.putString(Constantes.PESO, it.peso)
-                editor.putString(Constantes.ALTURA, it.altura)
-                editor.apply()
-                startActivity(intent)
-            }
-            dialog.show()
-        }*/
     }
 
     private fun prepararClickListenerVoltar() {
@@ -112,8 +100,60 @@ class LoginActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun prepararClickListenerEntrar() {
         botao_cadastrar.setOnClickListener {
-            validarFormulario()
+            if(validarFormulario()){
+                val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
+                var dataNascimento = LocalDate.parse(edit_valor_idade.text.toString(), formatter)
+                var idade = calcularIdade(dataNascimento)
+                var peso =  edit_valor_peso.text.toString().replace(",", ".").toDouble()
+                var altura = edit_valor_altura.text.toString().toInt()
+                salvarUsuario(edit_valor_cpf.rawText, edit_valor_nome.text.toString(), idade,
+                    peso, altura)
+                
+                fazerLogin(edit_valor_cpf.rawText, edit_valor_nome.text.toString(), idade.toString(),
+                    edit_valor_peso.text.toString(), edit_valor_altura.text.toString())
+            }
         }
+    }
+
+    private fun salvarUsuario(cpf: String, nome: String, idade: Int, peso: Double, altura: Int) {
+
+        var usuario = Usuario(cpf, nome, altura, idade, peso )
+
+        TrackerApplication.database?.usuarioDao()?.insertOrUpdateAtividades(usuario)
+    }
+
+    private fun fazerLogin(cpf: String, nome: String, idade: String, peso: String, altura: String){
+
+        var intent = Intent(this, HomeActivity::class.java)
+        val sharedPref = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+
+        editor.putString(Constantes.CPF, cpf)
+        editor.putString(Constantes.NOME, nome)
+        editor.putString(Constantes.IDADE,idade)
+        editor.putString(Constantes.PESO, peso)
+        editor.putString(Constantes.ALTURA, altura)
+        editor.apply()
+        startActivity(intent)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun calcularIdade(dataNasc: LocalDate): Int{
+
+        val hoje = Calendar.getInstance()
+
+        var idade = hoje.get(Calendar.YEAR) - dataNasc.year
+
+        if (hoje.get(Calendar.MONTH) < dataNasc.monthValue) {
+            idade--
+        } else {
+            if (hoje.get(Calendar.MONTH) === dataNasc.monthValue
+                && hoje.get(Calendar.DAY_OF_MONTH) < dataNasc.dayOfMonth) {
+                idade--
+            }
+        }
+
+        return idade
     }
 
     private fun prepararEventListenerAltura() {
@@ -191,6 +231,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun realizarLoginCpf() {
         if(!edit_valor_cpf.rawText.isNullOrEmpty() && edit_valor_cpf.rawText.length == 11){
             var usuario =
@@ -198,7 +239,8 @@ class LoginActivity : AppCompatActivity() {
             if(usuario == null){
                 esconderFormularioCpf()
             } else {
-                //TODO: Fazer quando já tiver usuario
+                fazerLogin(usuario.cpf, usuario.nome!! ,usuario.idade.toString(),
+                    usuario.peso.toString(), usuario.altura.toString() )
                 Toast.makeText(this, "Sucesso", Toast.LENGTH_LONG).show()
             }
         } else{

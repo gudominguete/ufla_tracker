@@ -11,7 +11,7 @@ import java.io.Serializable
     tableName = "usuario",
     indices = [Index("cpf")]
 )
-data class Usuario(
+data class Usuario  (
 
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "cpf")
@@ -21,11 +21,11 @@ data class Usuario(
     var nome: String?,
 
     @ColumnInfo(name = "altura")
-    var altura: String?,
+    var altura: Int?,
 
     @ColumnInfo(name = "idade")
     var idade: Int?,
 
     @ColumnInfo(name = "peso")
-    var peso: Float?
+    var peso: Double?
 ): Serializable

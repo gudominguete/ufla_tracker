@@ -7,4 +7,8 @@ import com.ufla.gustavo.uflatracker.entity.Usuario
 interface UsuarioDao {
     @Query("SELECT * FROM usuario WHERE cpf = :cpf")
     fun getUsuariosByCpf(cpf:String) : Usuario
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertOrUpdateAtividades(usuario: Usuario): Long
 }
