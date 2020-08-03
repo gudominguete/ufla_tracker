@@ -1,6 +1,8 @@
 package com.ufla.gustavo.uflatracker.ui.home
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.bluetooth.BluetoothDevice
 import android.content.*
 import android.content.pm.PackageManager
@@ -50,11 +52,24 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         configurarClickListeners()
         iniciarHeader()
+    }
+
+    fun habilitarBotaoEntrar(){
+        botao_iniciar_home.backgroundTintList = ContextCompat.getColorStateList(this, R.color.green)
+        botao_iniciar_home.setTextColor(-0x1)
+        botao_iniciar_home.setIconTintResource(R.color.white)
+
+    }
+    fun desabilitarBotarEntrar(){
+        botao_iniciar_home.backgroundTintList = ContextCompat.getColorStateList(this, R.color.cinza)
+        botao_iniciar_home.setTextColor(-0x1000000)
+        botao_iniciar_home.setIconTintResource(R.color.black)
     }
 
     override fun onRestart() {
@@ -141,6 +156,7 @@ class HomeActivity : AppCompatActivity() {
                     hideLoading()
                 }
                 conectarBluetoothService?.getValorAtual()
+                habilitarBotaoEntrar()
                 layout_conectar_dispositivo.visibility = View.GONE
                 mensagem_nao_conectado.visibility = View.GONE
                 aparelho_conectado.visibility = View.VISIBLE
@@ -157,6 +173,7 @@ class HomeActivity : AppCompatActivity() {
                 layout_batimento_home.visibility = View.GONE
                 valor_batimentos_cardiacos_home.text = ""
                 Toast.makeText(this@HomeActivity, "O aparelho foi desconectado", Toast.LENGTH_LONG).show()
+                desabilitarBotarEntrar()
                 conectarBluetoothService?.foiDesconectado = false
             } else if(conectarBluetoothService != null && !conectarBluetoothService!!.conectado){
                 layout_conectar_dispositivo.visibility = View.VISIBLE
@@ -165,6 +182,7 @@ class HomeActivity : AppCompatActivity() {
                 valor_nome_bluetooth.text = ""
                 layout_batimento_home.visibility = View.GONE
                 valor_batimentos_cardiacos_home.text = ""
+                desabilitarBotarEntrar()
             }
             handler.postDelayed(this, 500)
 

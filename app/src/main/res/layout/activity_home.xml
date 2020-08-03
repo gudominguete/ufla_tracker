@@ -24,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="14dp"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="14dp"
         android:fontFamily="@font/robotobold"
         android:text=""
@@ -57,13 +56,14 @@
             android:id="@+id/icone_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:src="@drawable/ic_mdi_info"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/aviso_dispositivo_nao_conectado"/>
 
         <TextView
+            android:id="@+id/aviso_dispositivo_nao_conectado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -72,7 +72,7 @@
             android:gravity="center"
             android:text="Você ainda não conectou seu dispositivo"
             android:textColor="@color/loginPrincipalBG"
-            android:textSize="12sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/icone_info"
@@ -123,25 +123,29 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="6dp"
-            android:text="Conecte o seu dispositivo via bluetooth e não perca nenhuma informação"
+            android:text="Conecte o seu dispositivo via bluetooth e não perca nenhuma informação dos batimentos cardíacos na atividade física."
             android:textColor="#6C6C6C"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imagem_conectar_bluetooth"
             app:layout_constraintTop_toBottomOf="@id/conecte_seu_dispositivo" />
 
-        <Button
-            android:id="@+id/botao_conectar_bluetooth"
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            style="@style/Theme.MaterialComponents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/bg_botao_conectar"
+            android:layout_margin="8dp"
+            android:backgroundTint="#00B38D"
+            android:contentDescription="Conectar"
             android:text="Conectar"
-            android:textAllCaps="false"
-            android:textColor="#00B38D"
+            android:textColor="@color/white"
+            app:icon="@drawable/ic_mdi_bluetooth_searching"
+            app:iconTint="@color/white"
+            android:id="@+id/botao_conectar_bluetooth"
             app:layout_constraintStart_toEndOf="@id/imagem_conectar_bluetooth"
             app:layout_constraintTop_toBottomOf="@id/subtext_conectar" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -247,96 +251,91 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="14dp"
-        android:background="@drawable/bg_footer_button"
+        android:id="@+id/botao_historico"
+        style="@style/Theme.MaterialComponents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/colorAccent"
+        android:contentDescription="Histórico"
+        android:text="Histórico"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_historico"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.9" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+
+        android:id="@+id/botao_iniciar_home"
+        style="@style/Theme.MaterialComponents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/cinza"
+        android:contentDescription="Entrar"
+        android:text="Entrar"
+        android:textColor="@color/black"
+        app:icon="@drawable/ic_iniciar_atividade"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+
+        android:id="@+id/botao_perfil"
+        style="@style/Theme.MaterialComponents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:contentDescription="Perfil"
+        android:text="Perfil"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_perfil"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        tools:ignore="MissingConstraints" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <LinearLayout
-            android:id="@+id/botao_historico"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_gravity="center"
-                android:src="@drawable/ic_historico"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:textColor="#959596"
-                android:layout_gravity="center"
-                android:text="Histórico"
-                android:fontFamily="@font/robotobold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/botao_perfil"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_gravity="center"
-                android:src="@drawable/ic_perfil"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:textColor="#959596"
-                android:layout_gravity="center"
-                android:text="Perfil"
-                android:fontFamily="@font/robotobold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/botao_iniciar_home"
-        android:background="@drawable/bg_botao_iniciar"
-        app:layout_constraintBottom_toTopOf="@+id/footer"
-        app:layout_constraintLeft_toLeftOf="@+id/footer"
-        app:layout_constraintRight_toRightOf="@+id/footer"
-        app:layout_constraintTop_toTopOf="@+id/footer"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:orientation="vertical"
-        android:padding="10dp">
-        <ImageView
-            android:layout_gravity="center"
-            android:src="@drawable/ic_iniciar_atividade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:fontFamily="@font/robotobold"
-            android:textAlignment="center"
-            android:text="Iniciar"
-            android:textColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/botao_iniciar_home"-->
+<!--        android:background="@drawable/bg_botao_iniciar"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/footer"-->
+<!--        app:layout_constraintLeft_toLeftOf="@+id/footer"-->
+<!--        app:layout_constraintRight_toRightOf="@+id/footer"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/footer"-->
+<!--        android:layout_width="65dp"-->
+<!--        android:layout_height="65dp"-->
+<!--        android:orientation="vertical"-->
+<!--        android:padding="10dp">-->
+<!--        <ImageView-->
+<!--            android:layout_gravity="center"-->
+<!--            android:src="@drawable/ic_iniciar_atividade"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"/>-->
+<!--        <TextView-->
+<!--            android:fontFamily="@font/robotobold"-->
+<!--            android:textAlignment="center"-->
+<!--            android:text="Iniciar"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"/>-->
+<!--    </LinearLayout>-->
     <include
         android:id="@id/progressBar"
         android:visibility="gone"
