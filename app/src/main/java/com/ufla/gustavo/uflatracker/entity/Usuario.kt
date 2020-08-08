@@ -5,6 +5,8 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.io.Serializable
+import java.time.LocalDate
+import java.util.*
 
 
 @Entity(
@@ -23,8 +25,8 @@ data class Usuario  (
     @ColumnInfo(name = "altura")
     var altura: Int?,
 
-    @ColumnInfo(name = "idade")
-    var idade: Int?,
+    @ColumnInfo(name = "dataNasc")
+    var dataNasc: Calendar? =null,
 
     @ColumnInfo(name = "peso")
     var peso: Double?

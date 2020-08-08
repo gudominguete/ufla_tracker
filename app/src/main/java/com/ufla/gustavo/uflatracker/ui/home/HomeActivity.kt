@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.ufla.gustavo.uflatracker.R
+import com.ufla.gustavo.uflatracker.TrackerApplication
 import com.ufla.gustavo.uflatracker.service.ConectarBluetoothService
 import com.ufla.gustavo.uflatracker.ui.atividade.AtividadeActivity
 import com.ufla.gustavo.uflatracker.ui.historico.HistoricoActivity
@@ -52,6 +53,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +76,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
+        iniciarHeader()
         handler.postDelayed(myRunnable, 100)
     }
 
@@ -95,8 +98,13 @@ class HomeActivity : AppCompatActivity() {
 
     private fun iniciarHeader() {
         val sharedPref = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE)
-        val nome = sharedPref.getString(Constantes.NOME, "")
-        texto_nome.text = nome
+        val cpf = sharedPref.getString(Constantes.CPF, "")
+        var usuario =
+            TrackerApplication.database?.usuarioDao()?.getUsuariosByCpf(cpf =cpf )
+        if(usuario != null){
+
+            texto_nome.text = usuario.nome
+        }
     }
 
     private fun configurarClickListeners() {
@@ -128,7 +136,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun abrirModalAtencaoSemDispositivo(){
         val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setMessage("Para iniciar a atividade deve-se selecionar um monitor de batimento cardíaco!")
+        dialogBuilder.setMessage("Para iniciar a atividade deve-se selecionar um monitor de batimento cardíaco! A conexão é realizada ao clicar no botão conectar na página principal.")
             .setCancelable(false)
             .setPositiveButton("Ok", DialogInterface.OnClickListener {
                     dialog, id ->

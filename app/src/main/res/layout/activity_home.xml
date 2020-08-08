@@ -118,13 +118,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:textColor="@color/loginPrincipalBG"
             android:id="@+id/subtext_conectar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="6dp"
             android:text="Conecte o seu dispositivo via bluetooth e não perca nenhuma informação dos batimentos cardíacos na atividade física."
-            android:textColor="#6C6C6C"
+
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imagem_conectar_bluetooth"

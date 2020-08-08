@@ -21,6 +21,7 @@ import com.ufla.gustavo.uflatracker.utils.Constantes
 import com.ufla.gustavo.uflatracker.utils.KeyboardUtils
 import com.ufla.gustavo.uflatracker.utils.StringUtils
 import kotlinx.android.synthetic.main.activity_login.*
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -101,23 +102,23 @@ class LoginActivity : AppCompatActivity() {
     private fun prepararClickListenerEntrar() {
         botao_cadastrar.setOnClickListener {
             if(validarFormulario()){
-                val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
-                var dataNascimento = LocalDate.parse(edit_valor_idade.text.toString(), formatter)
-                var idade = calcularIdade(dataNascimento)
+                val dataNascimento = Calendar.getInstance()
+                val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+                dataNascimento.time = sdf.parse(edit_valor_idade.text.toString())
                 var peso =  edit_valor_peso.text.toString().replace(",", ".").toDouble()
                 var altura = edit_valor_altura.text.toString().toInt()
-                salvarUsuario(edit_valor_cpf.rawText, edit_valor_nome.text.toString(), idade,
+                salvarUsuario(edit_valor_cpf.rawText, edit_valor_nome.text.toString(), dataNascimento,
                     peso, altura)
                 
-                fazerLogin(edit_valor_cpf.rawText, edit_valor_nome.text.toString(), idade.toString(),
+                fazerLogin(edit_valor_cpf.rawText, edit_valor_nome.text.toString(), dataNascimento.toString(),
                     edit_valor_peso.text.toString(), edit_valor_altura.text.toString())
             }
         }
     }
 
-    private fun salvarUsuario(cpf: String, nome: String, idade: Int, peso: Double, altura: Int) {
+    private fun salvarUsuario(cpf: String, nome: String, dataNasc: Calendar, peso: Double, altura: Int) {
 
-        var usuario = Usuario(cpf, nome, altura, idade, peso )
+        var usuario = Usuario(cpf, nome, altura, dataNasc, peso )
 
         TrackerApplication.database?.usuarioDao()?.insertOrUpdateAtividades(usuario)
     }
@@ -135,25 +136,6 @@ class LoginActivity : AppCompatActivity() {
         editor.putString(Constantes.ALTURA, altura)
         editor.apply()
         startActivity(intent)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun calcularIdade(dataNasc: LocalDate): Int{
-
-        val hoje = Calendar.getInstance()
-
-        var idade = hoje.get(Calendar.YEAR) - dataNasc.year
-
-        if (hoje.get(Calendar.MONTH) < dataNasc.monthValue) {
-            idade--
-        } else {
-            if (hoje.get(Calendar.MONTH) === dataNasc.monthValue
-                && hoje.get(Calendar.DAY_OF_MONTH) < dataNasc.dayOfMonth) {
-                idade--
-            }
-        }
-
-        return idade
     }
 
     private fun prepararEventListenerAltura() {
@@ -239,9 +221,8 @@ class LoginActivity : AppCompatActivity() {
             if(usuario == null){
                 esconderFormularioCpf()
             } else {
-                fazerLogin(usuario.cpf, usuario.nome!! ,usuario.idade.toString(),
+                fazerLogin(usuario.cpf, usuario.nome!! ,usuario.dataNasc.toString(),
                     usuario.peso.toString(), usuario.altura.toString() )
-                Toast.makeText(this, "Sucesso", Toast.LENGTH_LONG).show()
             }
         } else{
             texto_erro_cpf.visibility = View.VISIBLE

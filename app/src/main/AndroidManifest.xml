@@ -42,8 +42,7 @@
             android:name=".ui.historico.HistoricoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.GraphicActivity"
-            android:label="@string/title_activity_graphic"
+            android:name=".ui.perfil.EditarPerfilActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"
