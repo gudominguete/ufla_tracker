@@ -171,18 +171,19 @@
                 android:paddingEnd="18dp"
                 android:paddingBottom="24dp"
                 android:layout_margin="14dp">
+
                 <TextView
                     android:id="@+id/label_batimentos_cardiacos"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginStart="14dp"
-                    android:textAllCaps="true"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/robotobold"
-                    android:textColor="@color/loginPrincipalBG"
-                    android:text="batimentos cardíacos"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/robotobold"
+                    android:text="batimentos cardíacos"
+                    android:textAllCaps="true"
+                    android:textColor="@color/loginPrincipalBG"
+                    android:textSize="14sp"
+                    android:layout_marginStart="52dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
                 <com.jjoe64.graphview.GraphView
                     android:id="@+id/graph_atividade"
                     android:layout_width="0dp"

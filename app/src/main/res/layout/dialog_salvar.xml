@@ -17,7 +17,7 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/robotobold"
             android:textSize="14sp"
-            android:text="Preencha o nome que você quer dar para a atividade"
+            android:text="Preencha o nome que você quer dar para a atividade. O nome aparecerá no histórico de atividades."
             android:textColor="@color/loginPrincipalBG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

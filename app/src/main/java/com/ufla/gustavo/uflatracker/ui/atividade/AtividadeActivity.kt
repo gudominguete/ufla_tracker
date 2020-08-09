@@ -70,35 +70,17 @@ class AtividadeActivity : AppCompatActivity() {
 
 
     private fun exibirDesconexao(){
-
-        // Late initialize an alert dialog object
         lateinit var dialog:AlertDialog
-
-        // Initialize a new instance of alert dialog builder object
         val builder = AlertDialog.Builder(this)
-
-        // Set a title for alert dialog
         builder.setTitle("O equipamento foi desconectado")
-
-        // Set a message for alert dialog
         builder.setMessage("O equipamento foi desconectado, você deseja tentar encerrar a atividade?")
-
-
-        // On click listener for dialog buttons
         val dialogClickListener = DialogInterface.OnClickListener{_,which ->
             when(which){
                 DialogInterface.BUTTON_POSITIVE -> pararAtividade()
             }
         }
-
-        // Set the alert dialog positive/yes button
         builder.setPositiveButton("Sim",dialogClickListener)
-
-
-        // Initialize the AlertDialog using builder object
         dialog = builder.create()
-
-        // Finally, display the alert dialog
         dialog.show()
     }
 
@@ -169,14 +151,14 @@ class AtividadeActivity : AppCompatActivity() {
                     RegistroAtividade(null, it,atividade.id!!)
                 )
             }
-            chamarAlertaSucesso()
+            chamarAlertaSucesso(it)
         }
         dialog.show()
     }
 
-    private fun chamarAlertaSucesso(){
+    private fun chamarAlertaSucesso(nome: String){
         val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setMessage("Atividade salva com sucesso!")
+        dialogBuilder.setMessage("A atividade de nome: "+ nome +" foi salva com sucesso no histórico de atividades")
             .setCancelable(false)
             .setPositiveButton("Ok", DialogInterface.OnClickListener {
                     dialog, id -> finish()
