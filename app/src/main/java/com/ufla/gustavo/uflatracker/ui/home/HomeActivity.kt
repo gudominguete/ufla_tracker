@@ -118,13 +118,16 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
         botao_iniciar_home.setOnClickListener {
-            if(status){
-                handler.removeCallbacks(myRunnable)
-                var intent = Intent(this, AtividadeActivity::class.java)
-                startActivity(intent)
-            } else {
-                abrirModalAtencaoSemDispositivo()
-            }
+
+            var intent = Intent(this, AtividadeActivity::class.java)
+            startActivity(intent)
+//            if(status){
+//                handler.removeCallbacks(myRunnable)
+//                var intent = Intent(this, AtividadeActivity::class.java)
+//                startActivity(intent)
+//            } else {
+//                abrirModalAtencaoSemDispositivo()
+//            }
         }
         botao_conectar_bluetooth.setOnClickListener {
             checkBTPermissions()
@@ -199,20 +202,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun checkBTPermissions() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-//            var permissionCheck =
-//                checkSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION")
-//            permissionCheck += checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION")
-//            if (permissionCheck != 0) {
-//
-//                requestPermissions(
-//                    arrayOf(
-//                        Manifest.permission.ACCESS_FINE_LOCATION,
-//                        Manifest.permission.ACCESS_COARSE_LOCATION
-//                    ), 1001
-//                ) //Any number
-//            } else {
-//                abrirListaDispostivos()
-//            }
+
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {

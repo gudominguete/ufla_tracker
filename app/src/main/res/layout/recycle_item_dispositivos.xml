@@ -7,19 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingBottom="5dp">
-
-    <ImageView
-        android:id="@+id/imagem_bluetooth"
-        android:src="@drawable/bluetooth"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    android:padding="5dp">
 
     <TextView
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:paddingEnd="5dp"
         android:textColor="@color/loginPrincipalBG"
         android:fontFamily="@font/robotobold"
@@ -28,52 +19,60 @@
         android:layout_height="wrap_content"
         android:text="Nome:"
         android:layout_marginStart="5dp"
-        app:layout_constraintStart_toEndOf="@id/imagem_bluetooth"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:textSize="11sp"
+        android:textSize="13sp"
         android:fontFamily="@font/robotoregular"
         android:id="@+id/conteudo_nome"
+        android:textColor="@color/loginPrincipalBG"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toStartOf="@+id/text_conectar"
         app:layout_constraintStart_toEndOf="@+id/label_nome"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:textSize="11sp"
-        android:paddingEnd="5dp"
-        android:textColor="@color/loginPrincipalBG"
-        android:fontFamily="@font/robotobold"
         android:id="@+id/label_endereco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Endereço:"
         android:layout_marginStart="5dp"
-        app:layout_constraintStart_toEndOf="@id/imagem_bluetooth"
+        android:fontFamily="@font/robotobold"
+        android:paddingEnd="5dp"
+        android:text="Endereço:"
+        android:textColor="@color/loginPrincipalBG"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/label_nome" />
 
     <TextView
-        android:textSize="11sp"
-        android:fontFamily="@font/robotoregular"
         android:id="@+id/conteudo_endereco"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/robotoregular"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/text_conectar"
         app:layout_constraintStart_toEndOf="@+id/label_endereco"
-        app:layout_constraintTop_toBottomOf="@+id/conteudo_nome"/>
+        app:layout_constraintTop_toBottomOf="@+id/conteudo_nome" />
 
-    <TextView
+    <Button
         android:id="@+id/text_conectar"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:padding="5dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/robotobold"
         android:text="Conectar"
         android:textAllCaps="true"
-        android:textColor="@color/loginPrincipalBG"
-        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/loginPrincipalBG"
+        android:textSize="9sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,6 +24,7 @@ import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_atividade.*
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.*
+import kotlin.random.Random.Default.nextInt
 
 class AtividadeActivity : AppCompatActivity() {
 
@@ -103,7 +104,7 @@ class AtividadeActivity : AppCompatActivity() {
 
     private fun prepararLista() {
         for (i in 1..50){
-            lista.add(DataPoint(i.toDouble(), 0.toDouble()))
+            lista.add(DataPoint(i.toDouble(), 200.toDouble()))
         }
     }
 
@@ -253,7 +254,6 @@ class AtividadeActivity : AppCompatActivity() {
                 handler.postDelayed(this, 3000)
                 conectarBluetoothService!!.foiDesconectado = false
             }
-
             handler.postDelayed(this,1000)
         }
     }
