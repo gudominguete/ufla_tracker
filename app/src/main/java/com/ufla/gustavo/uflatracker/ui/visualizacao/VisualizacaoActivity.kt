@@ -27,7 +27,7 @@ class VisualizacaoActivity : AppCompatActivity() {
     }
 
     private fun preencherCampos(atividade: Atividade) {
-        texto_nome_atividade_visualizacao.text = atividade.nome
+        valor_tempo.text = atividade.tempoAtividade
         valor_batimentos_cardiacos.text = atividade.valor_medio.toString()
         valor_batimentos_cardiacos_minimo.text = atividade.valor_minimo.toString()
         valor_batimentos_cardiacos_maximo.text = atividade.valor_maximo.toString()

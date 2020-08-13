@@ -1,13 +1,11 @@
 package com.ufla.gustavo.uflatracker.ui.atividade
 
-import android.app.Dialog
 import android.bluetooth.BluetoothDevice
 import android.content.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import android.os.SystemClock
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -22,15 +20,14 @@ import com.ufla.gustavo.uflatracker.entity.RegistroAtividade
 import com.ufla.gustavo.uflatracker.service.ConectarBluetoothService
 import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_atividade.*
-import kotlinx.android.synthetic.main.activity_home.*
 import java.util.*
-import kotlin.random.Random.Default.nextInt
 
 class AtividadeActivity : AppCompatActivity() {
 
     private var conectarBluetoothService: ConectarBluetoothService? = null
     private var status = false
     private var iniciado = false
+    private var inicadoGeral = false
     private var lista = mutableListOf<DataPoint>()
     private var listaRegistroAtividade = mutableListOf<Int>()
     private var valor_minimo = 12000
@@ -86,7 +83,7 @@ class AtividadeActivity : AppCompatActivity() {
 
     private fun prepararLista() {
         for (i in 1..50){
-            lista.add(DataPoint(i.toDouble(), 200.toDouble()))
+            lista.add(DataPoint(i.toDouble(), 0.toDouble()))
         }
     }
 
@@ -143,7 +140,9 @@ class AtividadeActivity : AppCompatActivity() {
         var dialog = SalvarDialog(this){
             handler.removeCallbacks(myRunnable)
             valor_medio = valor_medio/ listaRegistroAtividade.size
-            var atividade = Atividade(null, Calendar.getInstance() ,  valor_tempo.text.toString(), it,  valor_maximo.toDouble(), valor_minimo.toDouble(), valor_medio.toDouble())
+            val sharedPref = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE)
+            val cpf = sharedPref.getString(Constantes.CPF, "")
+            var atividade = Atividade(null, Calendar.getInstance() ,  valor_tempo.text.toString(), it,  valor_maximo.toDouble(), valor_minimo.toDouble(), valor_medio.toDouble(), cpf )
             atividade.id = TrackerApplication.database?.atividadeDao()?.insertOrUpdateAtividades(atividade)
             listaRegistroAtividade.forEach {
 
@@ -184,7 +183,7 @@ class AtividadeActivity : AppCompatActivity() {
     private fun mudarLayoutAtividade(){
         if(!iniciado){
             imagem_parar.setImageDrawable(getDrawable(R.drawable.ic_play_arrow))
-            texto_botao_pausar.text = "Iniciar"
+            texto_botao_pausar.text = "Retomar"
             botao_pausar_atividade.setBackgroundResource(R.drawable.bg_botao_iniciar)
         } else {
 
@@ -198,7 +197,7 @@ class AtividadeActivity : AppCompatActivity() {
         botao_iniciar_atividade.visibility = View.GONE
         botao_pausar_atividade.visibility = View.VISIBLE
         botao_parar_atividade.visibility = View.VISIBLE
-
+        inicadoGeral = true
         if ( mLastStopTime == 0L )
             valor_tempo.setBase( SystemClock.elapsedRealtime() )
         valor_tempo.start()
@@ -206,6 +205,23 @@ class AtividadeActivity : AppCompatActivity() {
         bluetoothConectado = conectarBluetoothService!!.bluetoothDevice
     }
 
+    override fun onBackPressed() {
+        if(inicadoGeral){
+            val dialogBuilder = AlertDialog.Builder(this)
+            dialogBuilder.setMessage("Tem certeza que deseja sair? Você irá perder os dados caso confirme.")
+                .setCancelable(false)
+                .setPositiveButton("Ok", DialogInterface.OnClickListener {
+                        dialog, id -> finish()
+                })
+                .setNegativeButton("Cancelar", {
+                        dialog, id ->
+                })
+
+            val alert = dialogBuilder.create()
+            alert.setTitle("Atenção")
+            alert.show()
+        }
+    }
 
     var myRunnable: Runnable = object : Runnable {
         override fun run() {

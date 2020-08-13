@@ -1,11 +1,13 @@
 package com.ufla.gustavo.uflatracker.ui.historico
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ufla.gustavo.uflatracker.R
 import com.ufla.gustavo.uflatracker.TrackerApplication
+import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_historico.*
 
 class HistoricoActivity : AppCompatActivity() {
@@ -18,8 +20,9 @@ class HistoricoActivity : AppCompatActivity() {
     }
 
     fun configurarRecyclerView(){
-
-        var atividades = TrackerApplication.database?.atividadeDao()?.getAtividades()
+        val sharedPref = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        val cpf = sharedPref.getString(Constantes.CPF, "")
+        var atividades = TrackerApplication.database?.atividadeDao()?.getAtividadesByCpf(cpf)
         if(atividades != null && atividades.size > 0){
 
             var historicoAdapter= HistoricoAdapter(this, atividades!!)

@@ -1,15 +1,18 @@
 package com.ufla.gustavo.uflatracker.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
 import java.io.Serializable
 import java.util.*
 
 @Entity(
     tableName = "atividade",
-    indices = [Index("id")]
+    indices = [Index("id")],
+    foreignKeys = arrayOf(
+        ForeignKey(entity = Usuario::class,
+        parentColumns = arrayOf("cpf"),
+        childColumns = arrayOf("cpfUsuario"),
+        onDelete = ForeignKey.CASCADE)
+    )
 )
 data class Atividade(
     @PrimaryKey(autoGenerate = true)
@@ -32,5 +35,7 @@ data class Atividade(
     var valor_minimo: Double,
 
     @ColumnInfo(name = "valor_medio")
-    var valor_medio: Double
+    var valor_medio: Double,
+
+    val cpfUsuario: String
 ): Serializable

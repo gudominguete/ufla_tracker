@@ -15,6 +15,9 @@ interface AtividadeDao {
     @Delete
     fun deleteAtividade(atividade: Atividade)
 
+    @Query("SELECT * FROM atividade WHERE cpfUsuario = :cpf")
+    fun getAtividadesByCpf(cpf:String) : List<Atividade>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrUpdateAtividades(atividade: Atividade): Long
 }

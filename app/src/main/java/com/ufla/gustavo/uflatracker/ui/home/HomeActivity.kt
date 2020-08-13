@@ -119,15 +119,13 @@ class HomeActivity : AppCompatActivity() {
         }
         botao_iniciar_home.setOnClickListener {
 
-            var intent = Intent(this, AtividadeActivity::class.java)
-            startActivity(intent)
-//            if(status){
-//                handler.removeCallbacks(myRunnable)
-//                var intent = Intent(this, AtividadeActivity::class.java)
-//                startActivity(intent)
-//            } else {
-//                abrirModalAtencaoSemDispositivo()
-//            }
+            if(status){
+                handler.removeCallbacks(myRunnable)
+                var intent = Intent(this, AtividadeActivity::class.java)
+                startActivity(intent)
+            } else {
+                abrirModalAtencaoSemDispositivo()
+            }
         }
         botao_conectar_bluetooth.setOnClickListener {
             checkBTPermissions()

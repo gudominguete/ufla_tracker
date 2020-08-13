@@ -220,6 +220,7 @@
             android:src="@drawable/ic_play_arrow" />
 
         <TextView
+            android:textSize="11sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/robotobold"
@@ -254,6 +255,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/robotobold"
             android:text="Pausar"
+            android:textSize="11sp"
             android:textAlignment="center"
             android:textColor="@color/white" />
     </LinearLayout>
@@ -283,6 +285,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/robotobold"
             android:text="Parar"
+            android:textSize="11sp"
             android:textAlignment="center"
             android:textColor="@color/white" />
     </LinearLayout>
