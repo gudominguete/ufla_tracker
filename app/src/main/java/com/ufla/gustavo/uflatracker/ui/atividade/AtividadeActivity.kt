@@ -244,15 +244,18 @@ class AtividadeActivity : AppCompatActivity() {
                     contador++
                     listaRegistroAtividade.add(valorAtual)
 
-                    handler.postDelayed(this, 1000)
                 }
+
+                handler.postDelayed(this, 1000)
             } else if(!conectarBluetoothService!!.conectado  && conectarBluetoothService!!.foiDesconectado) {
                 pausarAtividade()
                 exibirDesconexao()
                 handler.postDelayed(this, 3000)
                 conectarBluetoothService!!.foiDesconectado = false
+            } else{
+
+                handler.postDelayed(this,1000)
             }
-            handler.postDelayed(this,1000)
         }
     }
 }

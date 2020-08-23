@@ -311,7 +311,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:contentDescription="Perfil"
-        android:text="Perfil"a
+        android:text="Perfil"
         android:backgroundTint="@color/colorAccent"
         android:textColor="@color/white"
         app:icon="@drawable/ic_perfil"
