@@ -52,22 +52,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linha_nome">
 
-        <ImageView
-            android:id="@+id/icone_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_mdi_info"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/aviso_dispositivo_nao_conectado"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/icone_info"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/ic_mdi_info"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/aviso_dispositivo_nao_conectado"/>-->
 
         <TextView
             android:id="@+id/aviso_dispositivo_nao_conectado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="32dp"
             android:fontFamily="@font/robotobold"
             android:gravity="center"
             android:text="Você ainda não conectou seu dispositivo"
@@ -75,7 +73,7 @@
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/icone_info"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -286,7 +284,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.9" />
+                app:layout_constraintGuide_percent="0.85" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
@@ -294,8 +292,6 @@
         style="@style/Theme.MaterialComponents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/cinza"
         android:contentDescription="Entrar"
         android:text="Entrar"
@@ -305,8 +301,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
@@ -316,7 +311,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:contentDescription="Perfil"
-        android:text="Perfil"
+        android:text="Perfil"a
         android:backgroundTint="@color/colorAccent"
         android:textColor="@color/white"
         app:icon="@drawable/ic_perfil"
