@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ufla.gustavo.uflatracker.R
 
@@ -31,6 +32,9 @@ class DispositivosAdapter(
         viewHolder.layout.setOnClickListener {
             funcao(dispositivo)
         }
+        viewHolder.textConectar.setOnClickListener {
+            funcao(dispositivo)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -41,10 +45,12 @@ class DispositivosAdapter(
     inner class DispositivosViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
+        var textConectar: Button
         var viewNome: TextView
         var viewEndereco: TextView
         var layout : ConstraintLayout
         init {
+            textConectar = itemView.findViewById(R.id.text_conectar)
             viewNome = itemView.findViewById(R.id.conteudo_nome)
             viewEndereco = itemView.findViewById(R.id.conteudo_endereco)
             layout = itemView.findViewById(R.id.layout_recycle_dispositivos)

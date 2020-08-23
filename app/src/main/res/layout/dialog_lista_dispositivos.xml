@@ -51,8 +51,7 @@
         app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descricao_listagem"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/descricao_listagem"/>
 <!--    <TextView-->
 <!--        android:drawableStart="@drawable/sync"-->
 <!--        android:drawablePadding="5dp"-->
