@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun abrirModalFormularioPreenchido(){
             val dialogBuilder = AlertDialog.Builder(this)
-            dialogBuilder.setMessage("Existe informações preenchidas no formulário. Se cancelar, os dados serão perdidos. Deseja continuar?")
+            dialogBuilder.setMessage("Existe informações preenchidas no formulário. Se voltar para a tela anterior, os dados serão perdidos. Deseja voltar para a tela anterior?")
                 .setCancelable(false)
                 .setPositiveButton("Sim", DialogInterface.OnClickListener {
                         dialog, id -> voltarFormCpf()
@@ -199,7 +199,6 @@ class LoginActivity : AppCompatActivity() {
         edit_valor_cpf.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
-
             }
 
             override fun beforeTextChanged(s: CharSequence, start: Int,
@@ -216,15 +215,22 @@ class LoginActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun realizarLoginCpf() {
         if(!edit_valor_cpf.rawText.isNullOrEmpty() && edit_valor_cpf.rawText.length == 11){
-            var usuario =
-                TrackerApplication.database?.usuarioDao()?.getUsuariosByCpf(edit_valor_cpf.rawText)
-            if(usuario == null){
-                esconderFormularioCpf()
+            if(StringUtils.validateCPF(edit_valor_cpf.rawText)){
+
+                var usuario =
+                    TrackerApplication.database?.usuarioDao()?.getUsuariosByCpf(edit_valor_cpf.rawText)
+                if(usuario == null){
+                    esconderFormularioCpf()
+                } else {
+                    fazerLogin(usuario.cpf, usuario.nome!! ,usuario.dataNasc.toString(),
+                        usuario.peso.toString(), usuario.altura.toString() )
+                }
             } else {
-                fazerLogin(usuario.cpf, usuario.nome!! ,usuario.dataNasc.toString(),
-                    usuario.peso.toString(), usuario.altura.toString() )
+                texto_erro_cpf.text = "O CPF digitado é inválido!"
+                texto_erro_cpf.visibility = View.VISIBLE
             }
         } else{
+            texto_erro_cpf.text = "O campo CPF não foi preenchido!"
             texto_erro_cpf.visibility = View.VISIBLE
         }
     }
@@ -233,7 +239,7 @@ class LoginActivity : AppCompatActivity() {
         layout_cpf.visibility = View.GONE
         texto_erro_cpf.visibility = View.GONE
         layout_formulario.visibility = View.VISIBLE
-        text_cpf_nao_encontrado.text = "O Cpf " + StringUtils.formatCpf(edit_valor_cpf.rawText) + " não está cadastrado."
+        text_cpf_nao_encontrado.text = "O CPF " + StringUtils.formatCpf(edit_valor_cpf.rawText) + " não está cadastrado."
         KeyboardUtils.hideKeyboardFrom(this.applicationContext,  botao_login_cpf)
     }
 
@@ -284,9 +290,9 @@ class LoginActivity : AppCompatActivity() {
         } else {
             try{
                 var altura = altura.toInt()
-                if(altura > 230){
+                if(altura > 230 || altura < 100){
                     valido = false
-                    mensagemErro = "O valor informado não corresponde a uma altura correta."
+                    mensagemErro = "O valor informado não corresponde a uma altura correta. Os valores permitidos são de 100cm a 230cm"
                 }
             } catch (exception: Exception){
                 valido = false
@@ -315,7 +321,7 @@ class LoginActivity : AppCompatActivity() {
                 val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
                 LocalDate.parse(data, formatter)
             }catch (ex: Exception){
-                mensagemErro = "A data informada não é uma data real"
+                mensagemErro = "A data informada não é uma data real. Por favor digite uma data correta novamente."
                 valido = false;
             }
         }
