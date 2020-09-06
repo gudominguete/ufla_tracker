@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ufla.gustavo.uflatracker.R
 import com.ufla.gustavo.uflatracker.TrackerApplication
 import com.ufla.gustavo.uflatracker.entity.Usuario
+import com.ufla.gustavo.uflatracker.ui.login.CancelarCadastroDialog
 import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_editar_perfil.*
 import kotlinx.android.synthetic.main.activity_editar_perfil.edit_valor_altura
@@ -40,7 +41,11 @@ class EditarPerfilActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun prepararClickListeners() {
         back_button_editar.setOnClickListener {
-            finish()
+            if(verificaExisteDadosFormulario()){
+                abrirModalFormularioPreenchido()
+            } else {
+                finish()
+            }
         }
         prepararEventListenerNome()
         prepararEventListenerAltura()
@@ -154,6 +159,29 @@ class EditarPerfilActivity : AppCompatActivity() {
         return valido
     }
 
+    override fun onBackPressed() {
+        if(verificaExisteDadosFormulario()){
+            abrirModalFormularioPreenchido()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun abrirModalFormularioPreenchido(){
+        CancelarCadastroDialog(this) {
+            finish()
+        }.show()
+    }
+
+    private fun verificaExisteDadosFormulario(): Boolean {
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        val dataNascUsuario = format.format(usuario?.dataNasc?.time)
+        return !edit_valor_altura.text.toString().equals(usuario?.altura.toString()) ||
+                !edit_valor_idade.text.toString().equals(dataNascUsuario) ||
+                !edit_valor_nome.text.toString().equals(usuario?.nome) ||
+                !edit_valor_peso.text.toString().toDouble().toInt().equals(usuario?.peso?.toInt())
+    }
+
     private fun validarAltura(): Boolean{
         var altura = edit_valor_altura.text.toString()
         var mensagemErro = ""
@@ -164,9 +192,9 @@ class EditarPerfilActivity : AppCompatActivity() {
         } else {
             try{
                 var altura = altura.toInt()
-                if(altura > 230){
+                if(altura > 230 || altura < 100){
                     valido = false
-                    mensagemErro = "O valor informado não corresponde a uma altura correta."
+                    mensagemErro = "O valor informado não corresponde a uma altura correta. Os valores permitidos são de 100cm a 230cm"
                 }
             } catch (exception: Exception){
                 valido = false

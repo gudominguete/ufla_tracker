@@ -58,10 +58,10 @@
         android:id="@+id/atleta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/robotoregular"
         android:text="Nome"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nome_perfil" />
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@id/atleta">
 
         <LinearLayout
@@ -103,7 +103,7 @@
         </LinearLayout>
         <TextView
             android:paddingBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:textSize="14sp"
             android:fontFamily="@font/robotoregular"
             android:text="Seu peso"
@@ -156,7 +156,7 @@
 
         <TextView
             android:paddingBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:textSize="14sp"
             android:fontFamily="@font/robotoregular"
             android:text="Sua altura"
@@ -186,7 +186,7 @@
         android:id="@+id/label_idade_perfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/robotoregular"
         android:paddingBottom="10dp"
         android:text="Data de nascimento"

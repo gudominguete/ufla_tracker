@@ -53,7 +53,7 @@ class PerfilActivity : AppCompatActivity() {
 
             nome_perfil.setText(usuario?.nome)
             valor_altura.setText(usuario?.altura.toString())
-            valor_peso.setText(usuario?.peso.toString())
+            valor_peso.setText(usuario?.peso.toString().replace(".", ","))
             val format = SimpleDateFormat("dd/MM/yyy")
             valor_idade.setText(format.format(usuario?.dataNasc?.time))
         }

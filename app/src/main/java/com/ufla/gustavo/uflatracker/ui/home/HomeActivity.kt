@@ -133,6 +133,9 @@ class HomeActivity : AppCompatActivity() {
         desconectar_equipamento.setOnClickListener {
             conectarBluetoothService?.disconnect()
         }
+        botao_logout_layout.setOnClickListener {
+            finish()
+        }
     }
 
     private fun abrirModalAtencaoSemDispositivo(){

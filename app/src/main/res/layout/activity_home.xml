@@ -32,6 +32,31 @@
         app:layout_constraintStart_toEndOf="@id/texto_ola"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/botao_logout_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="12dp">
+        <ImageView
+            android:id="@+id/botao_logout"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_exit_to_app"
+            android:layout_marginEnd="14dp"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:textSize="9sp"
+            android:layout_marginEnd="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/botao_logout"
+            android:text="Logout"
+            android:textColor="@color/loginPrincipalBG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:id="@+id/linha_nome"
         android:layout_width="match_parent"
@@ -293,8 +318,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/cinza"
-        android:contentDescription="Entrar"
-        android:text="Entrar"
+        android:contentDescription="Iniciar atividade"
+        android:text="Iniciar atividade"
         android:textColor="@color/black"
         app:icon="@drawable/ic_iniciar_atividade"
         app:iconTint="@color/black"

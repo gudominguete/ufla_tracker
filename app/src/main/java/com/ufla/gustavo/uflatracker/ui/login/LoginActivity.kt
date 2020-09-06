@@ -67,20 +67,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun abrirModalFormularioPreenchido(){
-            val dialogBuilder = AlertDialog.Builder(this)
-            dialogBuilder.setMessage("Existe informações preenchidas no formulário. Se voltar para a tela anterior, os dados serão perdidos. Deseja voltar para a tela anterior?")
-                .setCancelable(false)
-                .setPositiveButton("Sim", DialogInterface.OnClickListener {
-                        dialog, id -> voltarFormCpf()
-                })
-                .setNegativeButton("Não", {
-                    dialog, id->
-                })
-
-            val alert = dialogBuilder.create()
-            alert.setTitle("Atenção")
-            alert.show()
-
+        CancelarCadastroDialog(this, {
+            voltarFormCpf()
+        }).show()
     }
 
     private fun verificaExisteDadosFormulario(): Boolean {

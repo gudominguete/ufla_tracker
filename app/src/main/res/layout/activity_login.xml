@@ -68,7 +68,7 @@
             android:id="@+id/layout_formulario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
             android:padding="15dp">
 
             <LinearLayout
@@ -353,7 +353,7 @@
 
         </ScrollView>
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/layout_cpf"
             android:orientation="vertical"
             android:padding="15dp"
