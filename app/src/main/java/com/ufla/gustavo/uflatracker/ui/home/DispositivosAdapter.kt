@@ -26,8 +26,11 @@ class DispositivosAdapter(
 
     override fun onBindViewHolder(viewHolder: DispositivosViewHolder, i: Int) {
         val dispositivo = mList[i]
-
-        viewHolder.viewNome.text = dispositivo.name
+        if(dispositivo.name.isNullOrEmpty()){
+            viewHolder.viewNome.text = "Sem identificação"
+        } else {
+            viewHolder.viewNome.text = dispositivo.name
+        }
         viewHolder.viewEndereco.text = dispositivo.address
         viewHolder.layout.setOnClickListener {
             funcao(dispositivo)

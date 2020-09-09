@@ -60,8 +60,9 @@ class EditarPerfilActivity : AppCompatActivity() {
                 var altura = edit_valor_altura.text.toString().toInt()
                 editarUsuario(usuario!!.cpf, edit_valor_nome.text.toString(), dataNascimento,
                     peso, altura)
-                Toast.makeText(this, "Perfil editado com sucesso!", Toast.LENGTH_LONG).show()
-                finish()
+                ConfirmarEdicaoDialog(this) {
+                    finish()
+                }.show()
             }
         }
     }

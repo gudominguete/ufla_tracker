@@ -131,11 +131,27 @@ class HomeActivity : AppCompatActivity() {
             checkBTPermissions()
         }
         desconectar_equipamento.setOnClickListener {
-            conectarBluetoothService?.disconnect()
+            abrirModalDesconectar()
         }
         botao_logout_layout.setOnClickListener {
             finish()
         }
+    }
+
+    private fun abrirModalDesconectar(){
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage("Você realmente deseja desconectar o equipamento vestível?")
+            .setCancelable(false)
+            .setPositiveButton("Sim", DialogInterface.OnClickListener {
+                    dialog, id -> conectarBluetoothService?.disconnect()
+            })
+            .setNegativeButton("Não", {
+                dialog, which ->
+            })
+
+        val alert = dialogBuilder.create()
+        alert.setTitle("Atenção")
+        alert.show()
     }
 
     private fun abrirModalAtencaoSemDispositivo(){
@@ -184,7 +200,8 @@ class HomeActivity : AppCompatActivity() {
                 valor_nome_bluetooth.text = ""
                 layout_batimento_home.visibility = View.GONE
                 valor_batimentos_cardiacos_home.text = ""
-                Toast.makeText(this@HomeActivity, "O aparelho foi desconectado", Toast.LENGTH_LONG).show()
+                exibirDesconexao()
+//                Toast.makeText(this@HomeActivity, "O aparelho foi desconectado", Toast.LENGTH_LONG).show()
                 desabilitarBotarEntrar()
                 conectarBluetoothService?.foiDesconectado = false
             } else if(conectarBluetoothService != null && !conectarBluetoothService!!.conectado){
@@ -200,6 +217,19 @@ class HomeActivity : AppCompatActivity() {
 
         }
     }
+
+    private fun exibirDesconexao(){
+        lateinit var dialog:AlertDialog
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("O equipamento foi desconectado")
+        builder.setMessage("O equipamento foi desconectado!")
+        val dialogClickListener = DialogInterface.OnClickListener{_,which ->
+        }
+        builder.setPositiveButton("Ok",dialogClickListener)
+        dialog = builder.create()
+        dialog.show()
+    }
+
 
     private fun checkBTPermissions() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {

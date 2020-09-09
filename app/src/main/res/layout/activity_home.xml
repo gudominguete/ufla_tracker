@@ -105,6 +105,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_conectar_dispositivo"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -193,7 +194,7 @@
             android:layout_marginStart="32dp"
             android:text="Aparelho conectado:"
             android:textColor="@color/loginPrincipalBG"
-            android:textSize="12sp"
+            android:textSize="15sp"
             android:fontFamily="@font/robotobold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -209,7 +210,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="@color/loginPrincipalBG"
-            android:textSize="12sp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/label_aparelho_conectado"
@@ -241,14 +242,15 @@
             android:layout_height="36dp"/>
         <TextView
             android:id="@+id/label_batimento_cardiaco_atual"
-            app:layout_constraintStart_toEndOf="@+id/imagem_coracao_atividade"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="28dp"
             android:textSize="14sp"
             android:fontFamily="@font/robotobold"
             android:textColor="@color/loginPrincipalBG"
             android:text="Batimento cardíaco atual"
             android:layout_width="wrap_content"
+            app:layout_goneMarginStart="28dp"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:text="120"
@@ -258,7 +260,7 @@
             android:layout_marginStart="14dp"
             android:layout_marginTop="5dp"
             android:textAllCaps="true"
-            android:textSize="40sp"
+            android:textSize="36sp"
             android:fontFamily="@font/robotobold"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
@@ -275,15 +277,19 @@
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-        <Button
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:textAlignment="center"
             android:id="@+id/desconectar_equipamento"
+            style="@style/Theme.MaterialComponents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"
+            android:contentDescription="Desconectar"
             android:text="Desconectar"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/valor_batimentos_cardiacos_home" />
+            app:layout_constraintTop_toBottomOf="@+id/valor_batimentos_cardiacos_home"  />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

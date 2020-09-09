@@ -194,6 +194,8 @@ class AtividadeActivity : AppCompatActivity() {
     }
 
     private fun iniciarAtividade() {
+        label_atividade_nao_iniciada.visibility = View.GONE
+        valor_tempo.visibility = View.VISIBLE
         botao_iniciar_atividade.visibility = View.GONE
         botao_pausar_atividade.visibility = View.VISIBLE
         botao_parar_atividade.visibility = View.VISIBLE

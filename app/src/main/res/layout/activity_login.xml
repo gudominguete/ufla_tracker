@@ -246,7 +246,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/robotobold"
-                        android:text="Altura *"
+                        android:text="Altura"
                         android:textColor="@color/loginPrincipalBG" />
                     <TextView
                         android:layout_marginStart="2dp"
@@ -410,7 +410,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/robotobold"
-        android:text="Cotado: gudominguete@gmail.com"
+        android:text="Contato: gudominguete@gmail.com"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

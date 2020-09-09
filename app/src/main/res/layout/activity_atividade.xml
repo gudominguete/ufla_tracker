@@ -95,6 +95,7 @@
 
 
                 <Chronometer
+                    android:visibility="gone"
                     android:id="@+id/valor_tempo"
                     app:layout_constraintStart_toEndOf="@+id/imagem_tempo"
                     app:layout_constraintTop_toBottomOf="@id/label_tempo"
@@ -107,6 +108,20 @@
                     android:text="120"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/label_atividade_nao_iniciada"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/robotobold"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Atividade não iniciada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/imagem_tempo"
+                    app:layout_constraintTop_toBottomOf="@id/label_tempo">
+
+                </TextView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -151,6 +166,19 @@
                     android:layout_marginTop="5dp"
                     android:textAllCaps="true"
                     android:textSize="40sp"
+                    android:fontFamily="@font/robotobold"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="bpm"
+                    android:id="@+id/label_bpm_atividade"
+                    app:layout_constraintStart_toEndOf="@+id/valor_batimentos_cardiacos"
+                    app:layout_constraintBottom_toBottomOf="@id/valor_batimentos_cardiacos"
+                    android:layout_marginStart="14dp"
+                    android:textAllCaps="true"
+                    android:textSize="20sp"
                     android:fontFamily="@font/robotobold"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
