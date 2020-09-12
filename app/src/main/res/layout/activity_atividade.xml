@@ -86,7 +86,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="14dp"
                     android:textAllCaps="true"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:fontFamily="@font/robotobold"
                     android:textColor="@color/loginPrincipalBG"
                     android:text="Tempo"
@@ -102,7 +102,7 @@
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="5dp"
                     android:textAllCaps="true"
-                    android:textSize="30sp"
+                    android:textSize="24sp"
                     android:fontFamily="@font/robotobold"
                     android:textColor="@color/black"
                     android:text="120"
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/label_atividade_nao_iniciada"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:fontFamily="@font/robotobold"
                     android:textColor="@color/black"
                     android:layout_marginStart="14dp"
@@ -152,7 +152,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="14dp"
                     android:textAllCaps="true"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:fontFamily="@font/robotobold"
                     android:textColor="@color/loginPrincipalBG"
                     android:text="batimento cardíaco atual"
@@ -165,7 +165,7 @@
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="5dp"
                     android:textAllCaps="true"
-                    android:textSize="40sp"
+                    android:textSize="24sp"
                     android:fontFamily="@font/robotobold"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
@@ -178,7 +178,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/valor_batimentos_cardiacos"
                     android:layout_marginStart="14dp"
                     android:textAllCaps="true"
-                    android:textSize="20sp"
+                    android:textSize="12sp"
                     android:fontFamily="@font/robotobold"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
@@ -208,125 +208,132 @@
                     android:text="batimentos cardíacos"
                     android:textAllCaps="true"
                     android:textColor="@color/loginPrincipalBG"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:layout_marginStart="52dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-                <com.jjoe64.graphview.GraphView
-                    android:id="@+id/graph_atividade"
-                    android:layout_width="0dp"
-                    android:layout_height="200dip"
-                    android:layout_marginTop="5dp"
+<!--                <com.jjoe64.graphview.GraphView-->
+<!--                    android:id="@+id/graph_atividade"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="200dip"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/label_batimentos_cardiacos" />-->
+                <com.github.mikephil.charting.charts.LineChart
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/label_batimentos_cardiacos" />
+                    app:layout_constraintTop_toBottomOf="@id/label_batimentos_cardiacos"  />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
-        </LinearLayout>
+            </ScrollView>
 
-    </ScrollView>
+                <androidx.constraintlayout.widget.ConstraintLayout
 
-<androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/iniciar_atividade_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
+                    <LinearLayout
+                        android:id="@+id/botao_iniciar_atividade"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@drawable/bg_botao_iniciar"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:layout_marginBottom="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent">
 
-    android:id="@+id/iniciar_atividade_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent">
-    <LinearLayout
-        android:id="@+id/botao_iniciar_atividade"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:background="@drawable/bg_botao_iniciar"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_play_arrow" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_play_arrow" />
+                        <TextView
+                            android:textSize="11sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/robotobold"
+                            android:text="Iniciar"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
 
-        <TextView
-            android:textSize="11sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/robotobold"
-            android:text="Iniciar"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-    </LinearLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/botao_pausar_atividade"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@drawable/bg_botao_pausar"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:layout_marginBottom="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/botao_parar_atividade">
 
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/botao_pausar_atividade"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:background="@drawable/bg_botao_pausar"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/botao_parar_atividade">
+                        <ImageView
+                            android:id="@+id/imagem_parar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_pause" />
 
-        <ImageView
-            android:id="@+id/imagem_parar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_pause" />
-
-        <TextView
-            android:id="@+id/texto_botao_pausar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/robotobold"
-            android:text="Pausar"
-            android:textSize="11sp"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/botao_parar_atividade"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:background="@drawable/bg_botao_parar"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/botao_pausar_atividade"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_stop" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/robotobold"
-            android:text="Parar"
-            android:textSize="11sp"
-            android:textAlignment="center"
-            android:textColor="@color/white" />
-    </LinearLayout>
+                        <TextView
+                            android:id="@+id/texto_botao_pausar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/robotobold"
+                            android:text="Pausar"
+                            android:textSize="11sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/botao_parar_atividade"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:background="@drawable/bg_botao_parar"
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        android:layout_marginBottom="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/botao_pausar_atividade"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_stop" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/robotobold"
+                            android:text="Parar"
+                            android:textSize="11sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>

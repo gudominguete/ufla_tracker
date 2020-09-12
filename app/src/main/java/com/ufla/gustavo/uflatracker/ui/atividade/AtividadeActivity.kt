@@ -2,6 +2,8 @@ package com.ufla.gustavo.uflatracker.ui.atividade
 
 import android.bluetooth.BluetoothDevice
 import android.content.*
+import android.graphics.Color
+import android.graphics.DashPathEffect
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
@@ -10,9 +12,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.jjoe64.graphview.GraphView
-import com.jjoe64.graphview.series.DataPoint
-import com.jjoe64.graphview.series.LineGraphSeries
+import androidx.core.content.ContextCompat
+import com.github.mikephil.charting.components.YAxis.AxisDependency
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IFillFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.utils.Utils
 import com.ufla.gustavo.uflatracker.R
 import com.ufla.gustavo.uflatracker.TrackerApplication
 import com.ufla.gustavo.uflatracker.entity.Atividade
@@ -22,18 +30,22 @@ import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_atividade.*
 import java.util.*
 
+
 class AtividadeActivity : AppCompatActivity() {
 
     private var conectarBluetoothService: ConectarBluetoothService? = null
     private var status = false
     private var iniciado = false
     private var inicadoGeral = false
-    private var lista = mutableListOf<DataPoint>()
+//    private var lista = mutableListOf<DataPoint>()
+
+    private lateinit var  set1: LineDataSet
+    private var lista = mutableListOf<Entry>()
     private var listaRegistroAtividade = mutableListOf<Int>()
     private var valor_minimo = 12000
     private var valor_maximo = 0
     private var valor_medio = 0
-    private var contador = 51
+    private var contador = 1
     private var mLastStopTime: Long = 0
 
     var bluetoothConectado: BluetoothDevice? =null
@@ -62,7 +74,8 @@ class AtividadeActivity : AppCompatActivity() {
         prepararLista()
         prepararService()
         prepararDadosGrafico()
-
+        configurarChart()
+        setData(10,200F)
     }
 
 
@@ -70,21 +83,21 @@ class AtividadeActivity : AppCompatActivity() {
         lateinit var dialog:AlertDialog
         val builder = AlertDialog.Builder(this)
         builder.setTitle("O equipamento foi desconectado")
-        builder.setMessage("O equipamento foi desconectado, você deseja tentar encerrar a atividade?")
+        builder.setMessage("O equipamento foi desconectado, a atividade será finalizada!")
         val dialogClickListener = DialogInterface.OnClickListener{_,which ->
             when(which){
                 DialogInterface.BUTTON_POSITIVE -> pararAtividade()
             }
         }
-        builder.setPositiveButton("Sim",dialogClickListener)
+        builder.setPositiveButton("Ok",dialogClickListener)
         dialog = builder.create()
         dialog.show()
     }
 
     private fun prepararLista() {
-        for (i in 1..50){
-            lista.add(DataPoint(i.toDouble(), 0.toDouble()))
-        }
+//        for (i in 1..50){
+//            lista.add(DataPoint(i.toDouble(), 0.toDouble()))
+//        }
     }
 
     private fun reconectar(){
@@ -97,9 +110,9 @@ class AtividadeActivity : AppCompatActivity() {
     }
 
     private fun prepararDadosGrafico() {
-        val graph = findViewById(R.id.graph_atividade) as GraphView
-        val series = LineGraphSeries(lista.toTypedArray())
-        graph.addSeries(series)
+//        val graph = findViewById(R.id.graph_atividade) as GraphView
+//        val series = LineGraphSeries(lista.toTypedArray())
+//        graph.addSeries(series)
     }
 
     private fun prepararService() {
@@ -231,7 +244,7 @@ class AtividadeActivity : AppCompatActivity() {
                 var valorAtual = conectarBluetoothService!!.getValorAtual()
                 valor_batimentos_cardiacos.text = valorAtual.toString()
                 if(iniciado){
-                    lista.removeAt(0)
+                    if(lista.size > 0) lista.removeAt(0)
                     if(valorAtual < valor_minimo){
                         valor_minimo = valorAtual
                     }
@@ -239,10 +252,11 @@ class AtividadeActivity : AppCompatActivity() {
                         valor_maximo = valorAtual
                     }
                     valor_medio += valorAtual
-
-                    lista.add(DataPoint(contador.toDouble(), valorAtual.toDouble()))
-                    graph_atividade.removeAllSeries()
-                    graph_atividade.addSeries(LineGraphSeries(lista.toTypedArray()))
+                    lista.add(Entry(contador.toFloat(), valorAtual.toFloat()))
+                    addEntry(Entry(contador.toFloat(), valorAtual.toFloat()))
+//                    lista.add(DataPoint(contador.toDouble(), valorAtual.toDouble()))
+//                    graph_atividade.removeAllSeries()
+//                    graph_atividade.addSeries(LineGraphSeries(lista.toTypedArray()))
                     contador++
                     listaRegistroAtividade.add(valorAtual)
 
@@ -258,6 +272,132 @@ class AtividadeActivity : AppCompatActivity() {
 
                 handler.postDelayed(this,1000)
             }
+        }
+    }
+
+    private fun configurarChart(){
+
+        chart.setBackgroundColor(Color.WHITE)
+        chart.getDescription().setEnabled(false)
+        chart.setTouchEnabled(false)
+        var yAxis = chart.axisLeft;
+        yAxis.axisMaximum = 250f
+        yAxis.axisMinimum = 0f
+        chart.axisRight.isEnabled = false
+    }
+
+
+    private fun createSet(): LineDataSet? {
+        val set = LineDataSet(null, "Batimentos por minuto")
+        set.axisDependency = AxisDependency.LEFT
+        set.color = ColorTemplate.getHoloBlue()
+        set.setCircleColor(Color.WHITE)
+        set.lineWidth = 2f
+        set.circleRadius = 4f
+        set.fillAlpha = 65
+        set.fillColor = ColorTemplate.getHoloBlue()
+        set.highLightColor = Color.rgb(244, 117, 117)
+        set.valueTextColor = Color.WHITE
+        set.valueTextSize = 9f
+        set.setDrawValues(false)
+        return set
+    }
+
+    private fun addEntry(entry: Entry) {
+        val data = chart.data
+        if (data != null) {
+            var set = data.getDataSetByIndex(0)
+            // set.addEntry(...); // can be called as well
+            if (set == null) {
+                set = createSet()
+                data.addDataSet(set)
+            }
+            data.addEntry(
+                entry, 0
+            )
+            data.notifyDataChanged()
+
+            // let the chart know it's data has changed
+            chart.notifyDataSetChanged()
+
+            // limit the number of visible entries
+            chart.setVisibleXRangeMaximum(240f)
+            // chart.setVisibleYRange(30, AxisDependency.LEFT);
+
+            // move to the latest entry
+            chart.moveViewToX(data.entryCount.toFloat())
+
+            // this automatically refreshes the chart (calls invalidate())
+            // chart.moveViewTo(data.getXValCount()-7, 55f,
+            // AxisDependency.LEFT);
+        }
+    }
+
+    fun setData(count: Int, range: Float) {
+        val values = ArrayList<Entry>()
+//        for (i in 0 until count) {
+//            val f = (Math.random() * range).toFloat() - 30
+//            values.add(Entry(i.toFloat(), f))
+//        }
+        if (chart.getData() != null &&
+            chart.getData().getDataSetCount() > 0
+        ) {
+            set1 = chart.getData().getDataSetByIndex(0) as LineDataSet
+            set1.setValues(lista)
+            set1.notifyDataSetChanged()
+            chart.getData().notifyDataChanged()
+            chart.notifyDataSetChanged()
+        } else {
+            // create a dataset and give it a type
+            set1 = LineDataSet(values, "Batimentos por minuto")
+            set1.setDrawIcons(false)
+
+            // draw dashed line
+            set1.enableDashedLine(10f, 5f, 0f)
+
+            // black lines and points
+            set1.color = Color.BLACK
+            set1.setCircleColor(Color.BLACK)
+
+            // line thickness and point size
+            set1.lineWidth = 1f
+            set1.circleRadius = 3f
+
+            // draw points as solid circles
+            set1.setDrawCircleHole(false)
+
+            // customize legend entry
+            set1.formLineWidth = 1f
+            set1.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
+            set1.formSize = 15f
+
+            // text size of values
+            set1.valueTextSize = 9f
+
+            // draw selection line as dashed
+            set1.enableDashedHighlightLine(10f, 5f, 0f)
+
+            // set the filled area
+            set1.setDrawFilled(true)
+            set1.fillFormatter =
+                IFillFormatter { dataSet, dataProvider -> chart.getAxisLeft().getAxisMinimum() }
+
+            // set color of filled area
+            if (Utils.getSDKInt() >= 18) {
+                // drawables only supported on api level 18 and above
+                val drawable = ContextCompat.getDrawable(this, R.drawable.bg_boas_vindas)
+                set1.fillDrawable = drawable
+            } else {
+                set1.fillColor = Color.BLACK
+            }
+            val dataSets: ArrayList<ILineDataSet> = ArrayList()
+            dataSets.add(set1) // add the data sets
+
+            // create a data object with the data sets
+            val data = LineData(dataSets)
+
+            // set data
+            chart.setData(data)
         }
     }
 }

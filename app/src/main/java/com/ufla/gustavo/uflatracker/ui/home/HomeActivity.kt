@@ -101,10 +101,6 @@ class HomeActivity : AppCompatActivity() {
         val cpf = sharedPref.getString(Constantes.CPF, "")
         var usuario =
             TrackerApplication.database?.usuarioDao()?.getUsuariosByCpf(cpf =cpf )
-        if(usuario != null){
-
-            texto_nome.text = usuario.nome
-        }
     }
 
     private fun configurarClickListeners() {
@@ -188,6 +184,7 @@ class HomeActivity : AppCompatActivity() {
                 layout_conectar_dispositivo.visibility = View.GONE
                 mensagem_nao_conectado.visibility = View.GONE
                 aparelho_conectado.visibility = View.VISIBLE
+                label_nao_possivel_iniciar_atividade.visibility = View.GONE
                 valor_nome_bluetooth.text = bluetoothDeviceSelecionado.name
                 layout_batimento_home.visibility = View.VISIBLE
                 var valorAtual = conectarBluetoothService?.getValorAtual()
@@ -197,6 +194,7 @@ class HomeActivity : AppCompatActivity() {
                 layout_conectar_dispositivo.visibility = View.VISIBLE
                 mensagem_nao_conectado.visibility = View.VISIBLE
                 aparelho_conectado.visibility = View.GONE
+                label_nao_possivel_iniciar_atividade.visibility = View.VISIBLE
                 valor_nome_bluetooth.text = ""
                 layout_batimento_home.visibility = View.GONE
                 valor_batimentos_cardiacos_home.text = ""

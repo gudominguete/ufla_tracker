@@ -11,26 +11,15 @@
         android:id="@+id/texto_ola"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="14dp"
-        android:fontFamily="@font/robotoregular"
-        android:text="@string/ola"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/robotobold"
+        android:text="Home"
         android:textColor="@color/loginPrincipalBG"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/texto_nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="14dp"
-        android:layout_marginTop="14dp"
-        android:fontFamily="@font/robotobold"
-        android:text=""
-        android:textColor="@color/loginPrincipalBG"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@id/texto_ola"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/botao_logout_layout"
@@ -316,6 +305,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.85" />
+    <TextView
+        android:id="@+id/label_nao_possivel_iniciar_atividade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/robotobold"
+        android:gravity="center"
+        android:text="Não é possível iniciar a atividade sem conectar o dispositivo"
+        android:textColor="@color/loginPrincipalBG"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/botao_iniciar_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="5dp"/>
+
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 
