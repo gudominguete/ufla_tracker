@@ -57,9 +57,14 @@ class AtividadeActivity : AppCompatActivity() {
             val binder = service as ConectarBluetoothService.ConectarBluetoothBinder
             conectarBluetoothService = binder.service
             status = true
+            aparelho_conectado.visibility = View.VISIBLE
+            mensagem_nao_conectado.visibility = View.GONE
+            valor_nome_bluetooth.text = binder.service.bluetoothDevice?.name
         }
         override fun onServiceDisconnected(name: ComponentName) {
 
+            aparelho_conectado.visibility = View.GONE
+            mensagem_nao_conectado.visibility = View.VISIBLE
             conectarBluetoothService = null
             status = false
             exibirDesconexao()
@@ -86,7 +91,7 @@ class AtividadeActivity : AppCompatActivity() {
         builder.setMessage("O equipamento foi desconectado, a atividade será finalizada!")
         val dialogClickListener = DialogInterface.OnClickListener{_,which ->
             when(which){
-                DialogInterface.BUTTON_POSITIVE -> pararAtividade()
+                DialogInterface.BUTTON_POSITIVE -> pararAtividade(true)
             }
         }
         builder.setPositiveButton("Ok",dialogClickListener)
@@ -131,7 +136,23 @@ class AtividadeActivity : AppCompatActivity() {
 
     private fun prepararClickListeners() {
         botao_voltar_atividade.setOnClickListener {
-            finish()
+            if(inicadoGeral){
+                val dialogBuilder = AlertDialog.Builder(this)
+                dialogBuilder.setMessage("Tem certeza que deseja sair? Você irá perder os dados caso confirme.")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", DialogInterface.OnClickListener {
+                            dialog, id -> finish()
+                    })
+                    .setNegativeButton("Cancelar", {
+                            dialog, id ->
+                    })
+
+                val alert = dialogBuilder.create()
+                alert.setTitle("Atenção")
+                alert.show()
+            } else {
+                finish()
+            }
         }
 
         botao_iniciar_atividade.setOnClickListener {
@@ -141,16 +162,16 @@ class AtividadeActivity : AppCompatActivity() {
             pausarAtividade()
         }
         botao_parar_atividade.setOnClickListener {
-            pararAtividade()
+            pararAtividade(false)
         }
     }
 
-    private fun pararAtividade() {
+    private fun pararAtividade(desconectado: Boolean) {
         mLastStopTime = SystemClock.elapsedRealtime() - valor_tempo.getBase()
         valor_tempo.stop()
         iniciado = false
         mudarLayoutAtividade()
-        var dialog = SalvarDialog(this){
+        var dialog = SalvarDialog(this, {
             handler.removeCallbacks(myRunnable)
             valor_medio = valor_medio/ listaRegistroAtividade.size
             val sharedPref = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE)
@@ -164,7 +185,7 @@ class AtividadeActivity : AppCompatActivity() {
                 )
             }
             chamarAlertaSucesso(it)
-        }
+        }, desconectado)
         dialog.show()
     }
 
@@ -235,6 +256,8 @@ class AtividadeActivity : AppCompatActivity() {
             val alert = dialogBuilder.create()
             alert.setTitle("Atenção")
             alert.show()
+        } else {
+            finish()
         }
     }
 
@@ -265,6 +288,9 @@ class AtividadeActivity : AppCompatActivity() {
                 handler.postDelayed(this, 1000)
             } else if(!conectarBluetoothService!!.conectado  && conectarBluetoothService!!.foiDesconectado) {
                 pausarAtividade()
+
+                aparelho_conectado.visibility = View.GONE
+                mensagem_nao_conectado.visibility = View.VISIBLE
                 exibirDesconexao()
                 handler.postDelayed(this, 3000)
                 conectarBluetoothService!!.foiDesconectado = false
@@ -283,6 +309,7 @@ class AtividadeActivity : AppCompatActivity() {
         var yAxis = chart.axisLeft;
         yAxis.axisMaximum = 250f
         yAxis.axisMinimum = 0f
+        yAxis.valueFormatter = YAxisFormatter()
         chart.axisRight.isEnabled = false
     }
 

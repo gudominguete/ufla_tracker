@@ -8,11 +8,13 @@ import android.view.Window
 import com.ufla.gustavo.uflatracker.R
 import kotlinx.android.synthetic.main.dialog_salvar.*
 
-class SalvarDialog (context: Context, funcaoOk: ((String)->Unit)): Dialog(context){
+class SalvarDialog (context: Context, funcaoOk: ((String)->Unit), desconectado: Boolean): Dialog(context){
     private var funcaoOk: ((String)->Unit)
+    private var desconectado: Boolean = false
     init {
         setCancelable(true)
         this.funcaoOk = funcaoOk
+        this.desconectado = desconectado
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +22,12 @@ class SalvarDialog (context: Context, funcaoOk: ((String)->Unit)): Dialog(contex
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.dialog_salvar)
         prepararOnClickListeners()
+        if(desconectado){
+            text_cancelar_atividade.visibility = View.GONE
+        } else {
+            text_cancelar_atividade.visibility = View.VISIBLE
+        }
+        this.setCancelable(false)
     }
 
     private fun prepararOnClickListeners() {
