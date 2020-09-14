@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -51,6 +52,7 @@ class HomeActivity : AppCompatActivity() {
             status = false
             conectarBluetoothService = null
         }
+
     }
 
 
@@ -173,11 +175,27 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun mostrarConexao() {
+
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage("O dispositivo foi conectado!")
+            .setCancelable(false)
+            .setPositiveButton("Ok", DialogInterface.OnClickListener {
+                    dialog, id ->
+            })
+
+        val alert = dialogBuilder.create()
+        alert.setTitle("Dispositivo")
+        alert.show()
+    }
+
     var myRunnable: Runnable = object : Runnable {
         override fun run() {
             if(status && conectarBluetoothService != null && conectarBluetoothService!!.conectado){
                 if(progressBar.visibility.equals(View.VISIBLE)){
                     hideLoading()
+                } else{
+                    mostrarConexao()
                 }
                 conectarBluetoothService?.getValorAtual()
                 habilitarBotaoEntrar()

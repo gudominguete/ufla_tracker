@@ -3,6 +3,7 @@ package com.ufla.gustavo.uflatracker.ui.historico
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,9 +45,12 @@ class HistoricoAdapter(private val context: Context, private var listaAtividade:
         val textViewData = itemView.label_data_historico
         val layout = itemView.layout_recycle_historico
         val tempoHistorico = itemView.tempo_atividade_historico
+        val labelVerMais = itemView.label_ver_mais
 
         @SuppressLint("SimpleDateFormat")
         fun bindView(atividade: Atividade) {
+            labelVerMais.setPaintFlags(labelVerMais.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
+            labelVerMais.setText("Ver mais >>")
             textViewNome.text = atividade.nome
             val pattern = "dd/MM/yyyy HH:mm"
             val simpleDateFormat = SimpleDateFormat(pattern)

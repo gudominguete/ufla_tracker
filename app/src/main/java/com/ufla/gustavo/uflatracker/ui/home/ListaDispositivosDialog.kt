@@ -5,10 +5,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -17,6 +14,7 @@ import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.view.Window
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ufla.gustavo.uflatracker.R
 import kotlinx.android.synthetic.main.dialog_lista_dispositivos.*
@@ -95,6 +93,7 @@ class ListaDispositivosDialog (activity: Activity, funcaoConectar: (BluetoothDev
                 if (!possui) mBTDevices.add(device)
                 atualizarRecycleView()
             }
+
         }
     }
 
@@ -106,9 +105,32 @@ class ListaDispositivosDialog (activity: Activity, funcaoConectar: (BluetoothDev
                 dismiss()
             } else {
 
+                var erroConexao = prefs.getBoolean("erroConexao", false)
+                if(erroConexao) {
+                    mostrarDialogErroConexao()
+                    val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+                    val ed = prefs.edit()
+                        .putBoolean("erroConexao", false)
+                    ed.apply()
+                }
+
                 handler.postDelayed(this, 10)
             }
         }
+    }
+
+    private fun mostrarDialogErroConexao(){
+
+        val dialogBuilder = AlertDialog.Builder(context)
+        dialogBuilder.setMessage("Não foi possível realizar a conexão com o dispositivo")
+            .setCancelable(false)
+            .setPositiveButton("Ok", DialogInterface.OnClickListener {
+                    dialog, id -> loading.visibility = View.GONE
+            })
+
+        val alert = dialogBuilder.create()
+        alert.setTitle("Atenção")
+        alert.show()
     }
 
     private fun discoverBluetooth(){

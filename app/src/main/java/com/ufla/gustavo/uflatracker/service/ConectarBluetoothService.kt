@@ -46,6 +46,7 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
             conectado = true
         } else {
             conectado = false
+            erroConexao()
         }
     }
 
@@ -72,6 +73,15 @@ class ConectarBluetoothService() : Service(),HRProvider.HRClient {
             .putString("pref_bt_provider", hrProvider?.getProviderName())
             .putBoolean("conectado", true)
         ed.apply()
+    }
+
+    private fun erroConexao() {
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val ed = prefs.edit()
+            .putBoolean("erroConexao", true)
+        ed.apply()
+
     }
 
 
