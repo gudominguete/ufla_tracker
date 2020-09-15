@@ -1,7 +1,6 @@
 package com.ufla.gustavo.uflatracker.ui.login
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -9,9 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.ufla.gustavo.uflatracker.R
 import com.ufla.gustavo.uflatracker.TrackerApplication
@@ -63,6 +60,12 @@ class LoginActivity : AppCompatActivity() {
                 voltarFormCpf()
             }
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        voltarFormCpf()
 
     }
 
@@ -255,7 +258,12 @@ class LoginActivity : AppCompatActivity() {
             mensagemErro = "O campo peso não foi preenchido"
         } else {
             try{
-                peso.replace(",", ".").toDouble()
+                var pesoInput  = peso.replace(",", ".").toDouble()
+                if(pesoInput < 15 ) {
+
+                    valido = false
+                    mensagemErro = "O valor informado é muito baixo. O valor mínimo é de 15 kg."
+                }
             } catch (exception: Exception){
                 valido = false
                 mensagemErro = "O valor informado não corresponde a um peso correto."
@@ -308,7 +316,11 @@ class LoginActivity : AppCompatActivity() {
 
             try {
                 val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
-                LocalDate.parse(data, formatter)
+                var dataInput = LocalDate.parse(data, formatter)
+                if(dataInput > LocalDate.now()) {
+                    mensagemErro = "A data informada é maior que a data atual"
+                    valido = false;
+                }
             }catch (ex: Exception){
                 mensagemErro = "A data informada não é uma data real. Por favor digite uma data correta."
                 valido = false;

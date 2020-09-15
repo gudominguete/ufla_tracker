@@ -26,6 +26,7 @@ import com.ufla.gustavo.uflatracker.TrackerApplication
 import com.ufla.gustavo.uflatracker.entity.Atividade
 import com.ufla.gustavo.uflatracker.entity.RegistroAtividade
 import com.ufla.gustavo.uflatracker.service.ConectarBluetoothService
+import com.ufla.gustavo.uflatracker.ui.util.DialogPadrao
 import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_atividade.*
 import java.util.*
@@ -75,7 +76,6 @@ class AtividadeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_atividade)
         prepararClickListeners()
-        iniciarHeader()
         prepararLista()
         prepararService()
         prepararDadosGrafico()
@@ -128,11 +128,7 @@ class AtividadeActivity : AppCompatActivity() {
         status = true
     }
 
-    private fun iniciarHeader() {
-        val sharedPref = getSharedPreferences(Constantes.SHARED_PREFERENCES, Context.MODE_PRIVATE)
-        val nome = sharedPref.getString(Constantes.NOME, "")
-        texto_nome_atividade.text = nome
-    }
+
 
     private fun prepararClickListeners() {
         botao_voltar_atividade.setOnClickListener {
@@ -190,16 +186,23 @@ class AtividadeActivity : AppCompatActivity() {
     }
 
     private fun chamarAlertaSucesso(nome: String){
-        val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setMessage("A atividade de nome: "+ nome +" foi salva com sucesso no histórico de atividades")
-            .setCancelable(false)
-            .setPositiveButton("Ok", DialogInterface.OnClickListener {
-                    dialog, id -> finish()
-            })
 
-        val alert = dialogBuilder.create()
-        alert.setTitle("Sucesso")
-        alert.show()
+        DialogPadrao(this, "A atividade de nome: <b>"+ nome +"</b> foi salva com sucesso no histórico de atividades",
+            "Ok", {
+                finish()
+            }, "", {
+            }, false).show()
+
+//        val dialogBuilder = AlertDialog.Builder(this)
+//        dialogBuilder.setMessage("A atividade de nome: <b>"+ nome +"</b> foi salva com sucesso no histórico de atividades")
+//            .setCancelable(false)
+//            .setPositiveButton("Ok", DialogInterface.OnClickListener {
+//                    dialog, id -> finish()
+//            })
+//
+//        val alert = dialogBuilder.create()
+//        alert.setTitle("Sucesso")
+//        alert.show()
     }
 
     private fun pausarAtividade() {
@@ -310,6 +313,8 @@ class AtividadeActivity : AppCompatActivity() {
         yAxis.axisMaximum = 250f
         yAxis.axisMinimum = 0f
         yAxis.valueFormatter = YAxisFormatter()
+        var xAxis = chart.xAxis
+        xAxis.valueFormatter = XAxisFormatter()
         chart.axisRight.isEnabled = false
     }
 

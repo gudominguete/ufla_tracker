@@ -52,270 +52,274 @@
         android:background="@drawable/bg_boas_vindas"
         app:layout_constraintTop_toBottomOf="@+id/back_button_editar" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:background="@color/white"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        mask:layout_constraintBottom_toTopOf="@+id/botao_editar_confirmar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linha_nome">
 
         <LinearLayout
-            android:id="@+id/layout_formulario"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:background="@color/white"
             android:orientation="vertical"
-            android:padding="15dp">
-
-            <TextView
-                android:id="@+id/text_cpf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/robotobold"
-                android:textColor="@color/loginPrincipalBG"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/robotobold"
-                android:text="Preencha os campos abaixo para editar o seu cadastro"
-                android:textColor="@color/loginPrincipalBG"
-                android:textSize="14sp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linha_nome">
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/robotobold"
-                    android:text="Nome"
-                    android:textColor="@color/loginPrincipalBG" />
-
-                <TextView
-                    android:layout_marginStart="2dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="@font/robotobold"
-                    android:textColor="@color/red"
-                    android:text="*" />
-
-            </LinearLayout>
-
-            <EditText
-                android:textAlignment="textEnd"
-                android:id="@+id/edit_valor_nome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <TextView
-                android:id="@+id/texto_erro_nome_editar"
+                android:id="@+id/layout_formulario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="O campo nome não foi preenchido"
-                android:textColor="@color/red"
-                android:visibility="gone" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/robotobold"
-                    android:text="Data de nascimento"
-                    android:textColor="@color/loginPrincipalBG" />
+                android:orientation="vertical"
+                android:padding="15dp">
 
                 <TextView
-                    android:layout_marginStart="2dp"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/text_cpf"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/robotobold"
-                    android:textColor="@color/red"
-                    android:text="*" />
-
-            </LinearLayout>
-
-            <br.com.sapereaude.maskedEditText.MaskedEditText
-                android:textAlignment="textEnd"
-                android:id="@+id/edit_valor_idade"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                mask:allowed_chars="1234567890"
-                mask:mask="##/##/####" />
-
-            <TextView
-                android:id="@+id/texto_erro_idade_editar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="O campo data de nascimento não foi preenchido"
-                android:textColor="@color/red"
-                android:visibility="gone" />
-
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                    android:textColor="@color/loginPrincipalBG"
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/robotobold"
-                    android:text="Peso (Poderá ser alterado posteriormente)"
-                    android:textColor="@color/loginPrincipalBG" />
-                <TextView
-                    android:layout_marginStart="2dp"
+                    android:text="Preencha os campos abaixo para editar o seu cadastro"
+                    android:textColor="@color/loginPrincipalBG"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="@font/robotobold"
-                    android:textColor="@color/red"
-                    android:text="*" />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/robotobold"
+                        android:text="Nome"
+                        android:textColor="@color/loginPrincipalBG" />
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_marginStart="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/robotobold"
+                        android:textColor="@color/red"
+                        android:text="*" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                </LinearLayout>
 
                 <EditText
-                    android:textAlignment="textEnd"
-                    android:id="@+id/edit_valor_peso"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:digits="0123456789,"
-                    android:inputType="numberDecimal"
-                    app:layout_constraintEnd_toStartOf="@id/labelkg"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="MissingConstraints" />
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ áâãàéêíîóúÁÂÃÀÉÊÍÎÓÚ"
+                    android:id="@+id/edit_valor_nome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
 
                 <TextView
-                    android:id="@+id/labelkg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/robotobold"
-                    android:text="Kg"
-                    android:textColor="@color/loginPrincipalBG"
-                    android:textSize="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/texto_erro_peso_editar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="O campo peso não foi preenchido"
-                android:textColor="@color/red"
-                android:visibility="gone" />
-
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/texto_erro_nome_editar"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/robotobold"
-                    android:text="Altura"
-                    android:textColor="@color/loginPrincipalBG" />
-                <TextView
-                    android:layout_marginStart="2dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="@font/robotobold"
+                    android:layout_marginBottom="5dp"
+                    android:text="O campo nome não foi preenchido"
                     android:textColor="@color/red"
-                    android:text="*" />
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/robotobold"
+                        android:text="Data de nascimento"
+                        android:textColor="@color/loginPrincipalBG" />
+
+                    <TextView
+                        android:layout_marginStart="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/robotobold"
+                        android:textColor="@color/red"
+                        android:text="*" />
+
+                </LinearLayout>
+
+                <br.com.sapereaude.maskedEditText.MaskedEditText
+                    android:id="@+id/edit_valor_idade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    mask:allowed_chars="1234567890"
+                    mask:mask="##/##/####" />
+
+                <TextView
+                    android:id="@+id/texto_erro_idade_editar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="O campo data de nascimento não foi preenchido"
+                    android:textColor="@color/red"
+                    android:visibility="gone" />
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/robotobold"
+                        android:text="Peso (Poderá ser alterado posteriormente)"
+                        android:textColor="@color/loginPrincipalBG" />
+                    <TextView
+                        android:layout_marginStart="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/robotobold"
+                        android:textColor="@color/red"
+                        android:text="*" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_valor_peso"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789,"
+                        android:inputType="numberDecimal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/labelkg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/robotobold"
+                        android:text="Kg"
+                        android:textColor="@color/loginPrincipalBG"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        mask:layout_constraintStart_toEndOf="@+id/edit_valor_peso" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/texto_erro_peso_editar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="O campo peso não foi preenchido"
+                    android:textColor="@color/red"
+                    android:visibility="gone" />
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/robotobold"
+                        android:text="Altura"
+                        android:textColor="@color/loginPrincipalBG" />
+                    <TextView
+                        android:layout_marginStart="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/robotobold"
+                        android:textColor="@color/red"
+                        android:text="*" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_valor_altura"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789"
+                        android:inputType="numberDecimal"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <TextView
+                        android:id="@+id/labelcm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/robotobold"
+                        android:text="cm"
+                        android:textColor="@color/loginPrincipalBG"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        mask:layout_constraintStart_toEndOf="@+id/edit_valor_altura" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/texto_erro_altura_editar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="O campo altura não foi preenchido"
+                    android:textColor="@color/red"
+                    android:visibility="gone" />
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginEnd="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/robotobold"
+                        android:textColor="@color/red"
+                        android:text="*" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/robotobold"
+                        android:layout_marginTop="5dp"
+                        android:text="O campo é obrigatório"
+                        android:textColor="@color/loginPrincipalBG" />
+
+                </LinearLayout>
 
             </LinearLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:textAlignment="textEnd"
-                    android:id="@+id/edit_valor_altura"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:digits="0123456789"
-                    android:inputType="numberDecimal"
-                    app:layout_constraintEnd_toStartOf="@id/labelcm"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="MissingConstraints" />
-
-                <TextView
-                    android:id="@+id/labelcm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/robotobold"
-                    android:text="cm"
-                    android:textColor="@color/loginPrincipalBG"
-                    android:textSize="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/texto_erro_altura_editar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="O campo altura não foi preenchido"
-                android:textColor="@color/red"
-                android:visibility="gone" />
-
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginEnd="2dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="@font/robotobold"
-                    android:textColor="@color/red"
-                    android:text="*" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/robotobold"
-                    android:layout_marginTop="5dp"
-                    android:text="O campo é obrigatório"
-                    android:textColor="@color/loginPrincipalBG" />
-
-            </LinearLayout>
-
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/botao_editar_confirmar"

@@ -118,8 +118,7 @@
                 </LinearLayout>
 
                 <EditText
-                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-                    android:textAlignment="textEnd"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ áâãàéêíîóúÁÂÃÀÉÊÍÎÓÚ"
                     android:id="@+id/edit_valor_nome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -163,7 +162,6 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     mask:allowed_chars="1234567890"
-                    android:textAlignment="textEnd"
                     android:hint="10101990"
                     mask:mask="##/##/####" />
 
@@ -205,14 +203,11 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:textAlignment="textEnd"
                         android:id="@+id/edit_valor_peso"
-                        android:layout_width="0dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789,"
                         android:inputType="numberDecimal"
-                        app:layout_constraintEnd_toStartOf="@id/labelkg"
-                        app:layout_constraintStart_toStartOf="parent"
                         tools:ignore="MissingConstraints" />
 
                     <TextView
@@ -224,7 +219,7 @@
                         android:textColor="@color/loginPrincipalBG"
                         android:textSize="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/edit_valor_peso"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -265,13 +260,11 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:textAlignment="textEnd"
                         android:id="@+id/edit_valor_altura"
-                        android:layout_width="0dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
                         android:inputType="numberDecimal"
-                        app:layout_constraintEnd_toStartOf="@id/labelcm"
                         app:layout_constraintStart_toStartOf="parent"
                         tools:ignore="MissingConstraints" />
 
@@ -284,7 +277,7 @@
                         android:textColor="@color/loginPrincipalBG"
                         android:textSize="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/edit_valor_altura"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

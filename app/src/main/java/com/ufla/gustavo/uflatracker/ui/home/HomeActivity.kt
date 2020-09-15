@@ -25,6 +25,7 @@ import com.ufla.gustavo.uflatracker.service.ConectarBluetoothService
 import com.ufla.gustavo.uflatracker.ui.atividade.AtividadeActivity
 import com.ufla.gustavo.uflatracker.ui.historico.HistoricoActivity
 import com.ufla.gustavo.uflatracker.ui.perfil.PerfilActivity
+import com.ufla.gustavo.uflatracker.ui.util.DialogPadrao
 import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -137,19 +138,25 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun abrirModalDesconectar(){
-        val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setMessage("Você realmente deseja desconectar o equipamento vestível?")
-            .setCancelable(false)
-            .setPositiveButton("Sim", DialogInterface.OnClickListener {
-                    dialog, id -> conectarBluetoothService?.disconnect()
-            })
-            .setNegativeButton("Não", {
-                dialog, which ->
-            })
+        DialogPadrao(this, "Você realmente deseja desconectar o equipamento vestível?",
+            "Sim", {
+                conectarBluetoothService?.disconnect()
+            }, "Não", {
+            }, true).show()
 
-        val alert = dialogBuilder.create()
-        alert.setTitle("Atenção")
-        alert.show()
+//        val dialogBuilder = AlertDialog.Builder(this)
+//        dialogBuilder.setMessage("Você realmente deseja desconectar o equipamento vestível?")
+//            .setCancelable(false)
+//            .setPositiveButton("Sim", DialogInterface.OnClickListener {
+//                    dialog, id -> conectarBluetoothService?.disconnect()
+//            })
+//            .setNegativeButton("Não", {
+//                dialog, which ->
+//            })
+//
+//        val alert = dialogBuilder.create()
+//        alert.setTitle("Atenção")
+//        alert.show()
     }
 
     private fun abrirModalAtencaoSemDispositivo(){
@@ -176,17 +183,22 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun mostrarConexao() {
+        DialogPadrao(this, "O dispositivo foi conectado!",
+            "Ok", {
+            }, "", {
+            }, false).show()
 
-        val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setMessage("O dispositivo foi conectado!")
-            .setCancelable(false)
-            .setPositiveButton("Ok", DialogInterface.OnClickListener {
-                    dialog, id ->
-            })
-
-        val alert = dialogBuilder.create()
-        alert.setTitle("Dispositivo")
-        alert.show()
+//
+//        val dialogBuilder = AlertDialog.Builder(this)
+//        dialogBuilder.setMessage("O dispositivo foi conectado!")
+//            .setCancelable(false)
+//            .setPositiveButton("Ok", DialogInterface.OnClickListener {
+//                    dialog, id ->
+//            })
+//
+//        val alert = dialogBuilder.create()
+//        alert.setTitle("Dispositivo")
+//        alert.show()
     }
     private var mostrarDialogConexcao = false
     var myRunnable: Runnable = object : Runnable {
@@ -238,15 +250,20 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun exibirDesconexao(){
-        lateinit var dialog:AlertDialog
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("O equipamento foi desconectado")
-        builder.setMessage("O equipamento foi desconectado!")
-        val dialogClickListener = DialogInterface.OnClickListener{_,which ->
-        }
-        builder.setPositiveButton("Ok",dialogClickListener)
-        dialog = builder.create()
-        dialog.show()
+//        lateinit var dialog:AlertDialog
+//        val builder = AlertDialog.Builder(this)
+//        builder.setTitle("O equipamento foi desconectado")
+//        builder.setMessage("O equipamento foi desconectado!")
+//        val dialogClickListener = DialogInterface.OnClickListener{_,which ->
+//        }
+//        builder.setPositiveButton("Ok",dialogClickListener)
+//        dialog = builder.create()
+//        dialog.show()
+
+        DialogPadrao(this, "O equipamento foi desconectado!",
+            "Ok", {
+            }, "", {
+            }, false).show()
     }
 
 

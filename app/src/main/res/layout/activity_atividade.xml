@@ -16,31 +16,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/texto_ola"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="14dp"
-        android:fontFamily="@font/robotoregular"
-        android:text="@string/ola"
-        android:textColor="@color/loginPrincipalBG"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@id/botao_voltar_atividade"
-        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        app:layout_constraintStart_toEndOf="@+id/botao_voltar_atividade"
+        android:id="@+id/linha_vertical_nome"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="14dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linha_nome"
+        android:background="@drawable/bg_boas_vindas" />
 
     <TextView
-        android:id="@+id/texto_nome_atividade"
+        android:id="@+id/texto_nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="14dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="14dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="14dp"
         android:fontFamily="@font/robotobold"
-        android:text="Gustavo Dominguete"
+        android:text="Atividade"
         android:textColor="@color/loginPrincipalBG"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@id/texto_ola"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <View
         android:id="@+id/linha_nome"
@@ -48,9 +46,10 @@
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_boas_vindas"
-        app:layout_constraintTop_toBottomOf="@+id/texto_ola" />
+        app:layout_constraintTop_toBottomOf="@+id/botao_voltar_atividade" />
 
     <ScrollView
+        android:id="@+id/scroll_atividade"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/iniciar_atividade_layout"
@@ -315,7 +314,13 @@
                 </LinearLayout>
 
             </ScrollView>
-
+            <View
+                android:id="@+id/linha_vertical_iniciar"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                app:layout_constraintTop_toBottomOf="@+id/scroll_atividade"
+                app:layout_constraintBottom_toBottomOf="@id/scroll_atividade"
+                android:background="@drawable/bg_boas_vindas" />
                 <androidx.constraintlayout.widget.ConstraintLayout
 
                     android:id="@+id/iniciar_atividade_layout"
@@ -324,17 +329,20 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent">
+
                     <LinearLayout
                         android:id="@+id/botao_iniciar_atividade"
                         android:layout_width="65dp"
                         android:layout_height="65dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
                         android:background="@drawable/bg_botao_iniciar"
                         android:orientation="vertical"
                         android:padding="10dp"
-                        android:layout_marginBottom="24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent">
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -343,13 +351,13 @@
                             android:src="@drawable/ic_play_arrow" />
 
                         <TextView
-                            android:textSize="11sp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/robotobold"
                             android:text="Iniciar"
                             android:textAlignment="center"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -360,7 +368,9 @@
                         android:background="@drawable/bg_botao_pausar"
                         android:orientation="vertical"
                         android:padding="10dp"
-                        android:layout_marginBottom="24dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/botao_parar_atividade">
@@ -392,7 +402,9 @@
                         android:background="@drawable/bg_botao_parar"
                         android:orientation="vertical"
                         android:padding="10dp"
-                        android:layout_marginBottom="24dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/botao_pausar_atividade"
                         app:layout_constraintEnd_toEndOf="parent">

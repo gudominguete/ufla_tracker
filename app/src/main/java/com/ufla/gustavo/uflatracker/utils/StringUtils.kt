@@ -24,6 +24,13 @@ class StringUtils {
             var dvCurrent10 = cpfClean.substring(9,10).toInt()
             var dvCurrent11= cpfClean.substring(10,11).toInt()
 
+            var x = 0
+            while(cpfClean.get(x).equals(cpfClean.get(x+1)) && x < 9 ){
+                x++
+            }
+
+            if(x == 9) return false
+
             //the sum of the nine first digits determines the tenth digit
             val cpfNineFirst = IntArray(9)
             var i = 9

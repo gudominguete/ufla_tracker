@@ -13,6 +13,7 @@ import com.ufla.gustavo.uflatracker.R
 import com.ufla.gustavo.uflatracker.TrackerApplication
 import com.ufla.gustavo.uflatracker.entity.Usuario
 import com.ufla.gustavo.uflatracker.ui.login.CancelarCadastroDialog
+import com.ufla.gustavo.uflatracker.ui.util.DialogPadrao
 import com.ufla.gustavo.uflatracker.utils.Constantes
 import kotlinx.android.synthetic.main.activity_editar_perfil.*
 import kotlinx.android.synthetic.main.activity_editar_perfil.edit_valor_altura
@@ -75,7 +76,7 @@ class EditarPerfilActivity : AppCompatActivity() {
             text_cpf.setText("CPF: " + usuario?.cpf)
             edit_valor_nome.setText(usuario?.nome)
             edit_valor_altura.setText(usuario?.altura.toString())
-            edit_valor_peso.setText(usuario?.peso.toString())
+            edit_valor_peso.setText(usuario?.peso.toString().replace(".", ","))
             val format = SimpleDateFormat("dd/MM/yyy")
             edit_valor_idade.setText(format.format(usuario?.dataNasc?.time))
         }
@@ -115,16 +116,20 @@ class EditarPerfilActivity : AppCompatActivity() {
         var data = edit_valor_idade.text.toString()
         var mensagemErro = ""
         var valido = true
-        if(data.isNullOrEmpty()){
+        if(edit_valor_idade.rawText.toString().isNullOrEmpty()){
             valido = false
             mensagemErro = "O campo data de nascimento não foi preenchido"
         } else{
 
             try {
                 val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
-                LocalDate.parse(data, formatter)
+                var dataInput = LocalDate.parse(data, formatter)
+                if(dataInput > LocalDate.now()) {
+                    mensagemErro = "A data informada é maior que a data atual"
+                    valido = false;
+                }
             }catch (ex: Exception){
-                mensagemErro = "A data informada não é uma data real"
+                mensagemErro = "A data informada não é uma data real. Por favor digite uma data correta."
                 valido = false;
             }
         }
@@ -137,6 +142,8 @@ class EditarPerfilActivity : AppCompatActivity() {
         return valido
     }
 
+
+
     private fun validarPeso(): Boolean{
         var peso = edit_valor_peso.text.toString()
         var mensagemErro = ""
@@ -146,7 +153,12 @@ class EditarPerfilActivity : AppCompatActivity() {
             mensagemErro = "O campo peso não foi preenchido"
         } else {
             try{
-                peso.replace(",", ".").toDouble()
+                var pesoInput  = peso.replace(",", ".").toDouble()
+                if(pesoInput < 15 ) {
+
+                    valido = false
+                    mensagemErro = "O valor informado é muito baixo. O valor mínimo é de 15 kg."
+                }
             } catch (exception: Exception){
                 valido = false
                 mensagemErro = "O valor informado não corresponde a um peso correto."
@@ -169,9 +181,12 @@ class EditarPerfilActivity : AppCompatActivity() {
     }
 
     private fun abrirModalFormularioPreenchido(){
-        CancelarCadastroDialog(this) {
-            finish()
-        }.show()
+        DialogPadrao(this, "Existem informações modificadas. Se voltar para a tela anterior, os dados modificados serão perdidos e voltará para os dados originais. Deseja voltar para a tela anterior?",
+        "Sim", {
+                finish()
+            }, "Não", {
+
+            }, true).show()
     }
 
     private fun verificaExisteDadosFormulario(): Boolean {
@@ -189,7 +204,7 @@ class EditarPerfilActivity : AppCompatActivity() {
         var valido = true
         if(altura.isNullOrEmpty()){
             valido = false
-            mensagemErro = "O campo peso não foi preenchido"
+            mensagemErro = "O campo altura não foi preenchido"
         } else {
             try{
                 var altura = altura.toInt()
