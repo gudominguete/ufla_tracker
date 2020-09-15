@@ -275,7 +275,7 @@ class AtividadeActivity : AppCompatActivity() {
                         valor_maximo = valorAtual
                     }
                     valor_medio += valorAtual
-                    lista.add(Entry(contador.toFloat(), valorAtual.toFloat()))
+//                    lista.add(Entry(contador.toFloat(), valorAtual.toFloat()))
                     addEntry(Entry(contador.toFloat(), valorAtual.toFloat()))
 //                    lista.add(DataPoint(contador.toDouble(), valorAtual.toDouble()))
 //                    graph_atividade.removeAllSeries()
@@ -329,6 +329,7 @@ class AtividadeActivity : AppCompatActivity() {
         set.setDrawValues(false)
         return set
     }
+    private var firstIndex: Float = 0f
 
     private fun addEntry(entry: Entry) {
         val data = chart.data
@@ -342,6 +343,12 @@ class AtividadeActivity : AppCompatActivity() {
             data.addEntry(
                 entry, 0
             )
+            if(data.entryCount > 10)
+            {
+
+                data.removeEntry(firstIndex,0)
+                firstIndex += 1f
+            }
             data.notifyDataChanged()
 
             // let the chart know it's data has changed
@@ -349,7 +356,7 @@ class AtividadeActivity : AppCompatActivity() {
 
             // limit the number of visible entries
             chart.setVisibleXRangeMaximum(240f)
-            // chart.setVisibleYRange(30, AxisDependency.LEFT);
+//             chart.setVisibleYRange(10F, AxisDependency.LEFT);
 
             // move to the latest entry
             chart.moveViewToX(data.entryCount.toFloat())

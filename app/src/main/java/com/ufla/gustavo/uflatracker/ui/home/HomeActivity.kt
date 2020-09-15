@@ -188,14 +188,17 @@ class HomeActivity : AppCompatActivity() {
         alert.setTitle("Dispositivo")
         alert.show()
     }
-
+    private var mostrarDialogConexcao = false
     var myRunnable: Runnable = object : Runnable {
         override fun run() {
             if(status && conectarBluetoothService != null && conectarBluetoothService!!.conectado){
                 if(progressBar.visibility.equals(View.VISIBLE)){
                     hideLoading()
-                } else{
+                    mostrarDialogConexcao = true
+                }
+                if(mostrarDialogConexcao){
                     mostrarConexao()
+                    mostrarDialogConexcao = false
                 }
                 conectarBluetoothService?.getValorAtual()
                 habilitarBotaoEntrar()

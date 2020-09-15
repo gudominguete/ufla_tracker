@@ -275,7 +275,7 @@ class LoginActivity : AppCompatActivity() {
         var valido = true
         if(altura.isNullOrEmpty()){
             valido = false
-            mensagemErro = "O campo peso não foi preenchido"
+            mensagemErro = "O campo altura não foi preenchido"
         } else {
             try{
                 var altura = altura.toInt()
@@ -301,7 +301,7 @@ class LoginActivity : AppCompatActivity() {
         var data = edit_valor_idade.text.toString()
         var mensagemErro = ""
         var valido = true
-        if(data.isNullOrEmpty()){
+        if(edit_valor_idade.rawText.toString().isNullOrEmpty()){
             valido = false
             mensagemErro = "O campo data de nascimento não foi preenchido"
         } else{
@@ -310,7 +310,7 @@ class LoginActivity : AppCompatActivity() {
                 val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH)
                 LocalDate.parse(data, formatter)
             }catch (ex: Exception){
-                mensagemErro = "A data informada não é uma data real. Por favor digite uma data correta novamente."
+                mensagemErro = "A data informada não é uma data real. Por favor digite uma data correta."
                 valido = false;
             }
         }

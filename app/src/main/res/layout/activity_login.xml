@@ -364,7 +364,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/robotobold"
-                android:text="Digite o CPF para entrar no aplicativo. Caso não tenha cadastro, você será redirecionado para tela de cadastro:"
+                android:text="Digite o CPF para entrar no aplicativo. Caso não tenha cadastro, você será redirecionado para a tela de cadastro:"
                 android:textColor="@color/loginPrincipalBG"
                 android:textSize="14sp" />
             <br.com.sapereaude.maskedEditText.MaskedEditText
