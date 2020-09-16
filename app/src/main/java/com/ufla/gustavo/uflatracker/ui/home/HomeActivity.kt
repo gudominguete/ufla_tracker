@@ -289,7 +289,7 @@ class HomeActivity : AppCompatActivity() {
                     ActivityCompat.requestPermissions(this,
                         arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                         1001)
-
+                    mostrarDialogPermissaoNegada()
                     // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                     // app-defined int constant. The callback method gets the
                     // result of the request.
@@ -305,6 +305,11 @@ class HomeActivity : AppCompatActivity() {
                 "checkBTPermissions: No need to check permissions. SDK version < LOLLIPOP."
             )
         }
+    }
+
+    private fun mostrarDialogPermissaoNegada(){
+        DialogPadrao(this,"A permissão para utilizar o bluetooth foi negada. Para continuar com a conexão é necessário autorizar a permissão. Para autorizar você deve ir nas configurações do celular, encontrar a opção de aplicativos, encontrar o aplicativo Ufla Tracker e liberar a permissão de conexão com o bluetooth."
+        , "Ok", {}, "", {}, false).show()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int,
