@@ -187,7 +187,7 @@ class AtividadeActivity : AppCompatActivity() {
 
     private fun chamarAlertaSucesso(nome: String){
 
-        DialogPadrao(this, "A atividade de nome: <b>"+ nome +"</b> foi salva com sucesso no histórico de atividades",
+        DialogPadrao(this, "A atividade de nome:  '"+ nome +"' foi salva com sucesso no histórico de atividades",
             "Ok", {
                 finish()
             }, "", {

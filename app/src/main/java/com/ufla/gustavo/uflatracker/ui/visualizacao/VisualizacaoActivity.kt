@@ -84,25 +84,6 @@ class VisualizacaoActivity : AppCompatActivity() {
     fun setData(registros: List<RegistroAtividade>?) {
         val values = ArrayList<Entry>()
         var  set1: LineDataSet?
-        if (chart.getData() != null &&
-            chart.getData().getDataSetCount() > 0
-        ) {
-            set1 = chart.getData().getDataSetByIndex(0) as LineDataSet
-            //        for (i in 0 until count) {
-//            val f = (Math.random() * range).toFloat() - 30
-//            values.add(Entry(i.toFloat(), f))
-//        }
-            var item = 0
-            registros?.forEach {
-
-                lista.add(Entry( it.valorBatimento.toFloat(), item.toFloat() ))
-                item++
-            }
-            set1.setValues(lista)
-            set1.notifyDataSetChanged()
-            chart.getData().notifyDataChanged()
-            chart.notifyDataSetChanged()
-        } else {
             // create a dataset and give it a type
             set1 = LineDataSet(values, "Batimentos por minuto")
             set1.setDrawIcons(false)
@@ -127,7 +108,7 @@ class VisualizacaoActivity : AppCompatActivity() {
             set1.formSize = 15f
 
             // text size of values
-            set1.valueTextSize = 9f
+            set1.valueTextSize = 0f
 
             // draw selection line as dashed
             set1.enableDashedHighlightLine(10f, 5f, 0f)
@@ -135,7 +116,7 @@ class VisualizacaoActivity : AppCompatActivity() {
             // set the filled area
             set1.setDrawFilled(true)
             set1.fillFormatter =
-                IFillFormatter { dataSet, dataProvider -> chart.getAxisLeft().getAxisMinimum() }
+                IFillFormatter { dataSet, dataProvider -> visualizacao_graph.getAxisLeft().getAxisMinimum() }
 
             // set color of filled area
             if (Utils.getSDKInt() >= 18) {
@@ -152,20 +133,37 @@ class VisualizacaoActivity : AppCompatActivity() {
             val data = LineData(dataSets)
 
             // set data
-            chart.setData(data)
+            visualizacao_graph.setData(data)
+
+        set1 = visualizacao_graph.getData().getDataSetByIndex(0) as LineDataSet
+        //        for (i in 0 until count) {
+//            val f = (Math.random() * range).toFloat() - 30
+//            values.add(Entry(i.toFloat(), f))
+//        }
+        var item = 0
+        registros?.forEach {
+
+            lista.add(Entry( item.toFloat(), it.valorBatimento.toFloat()  ))
+            item++
         }
+        set1.setValues(lista)
+        set1.notifyDataSetChanged()
+        visualizacao_graph.getData().notifyDataChanged()
+        visualizacao_graph.notifyDataSetChanged()
+
     }
     private fun configurarChart(){
 
-        chart.setBackgroundColor(Color.WHITE)
-        chart.getDescription().setEnabled(false)
-        chart.setTouchEnabled(false)
-        var yAxis = chart.axisLeft;
+        visualizacao_graph.setBackgroundColor(Color.WHITE)
+        visualizacao_graph.getDescription().setEnabled(false)
+        visualizacao_graph.setTouchEnabled(false)
+        var yAxis = visualizacao_graph.axisLeft;
         yAxis.axisMaximum = 250f
         yAxis.axisMinimum = 0f
         yAxis.valueFormatter = YAxisFormatter()
-        var xAxis = chart.xAxis
-        chart.axisRight.isEnabled = false
+        var xAxis = visualizacao_graph.xAxis
+        xAxis.valueFormatter = XAxisFormatter()
+        visualizacao_graph.axisRight.isEnabled = false
     }
 
 
