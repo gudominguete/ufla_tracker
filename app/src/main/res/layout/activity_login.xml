@@ -43,14 +43,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:visibility="visible"
@@ -324,7 +324,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/layout_bottao_cadastro"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="15dp"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp">
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/botao_voltar_cadastro"
                 style="@style/Theme.MaterialComponents"

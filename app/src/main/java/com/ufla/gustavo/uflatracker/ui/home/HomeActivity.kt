@@ -177,9 +177,31 @@ class HomeActivity : AppCompatActivity() {
             end = System.currentTimeMillis()
             if((end-begin)<10000)
                 loadingHandler.postDelayed(this, 100)
-            else
+            else{
+
                 hideLoading()
+                mostrarDialogErroConexao()
+            }
+
         }
+    }
+
+    private fun mostrarDialogErroConexao(){
+
+        DialogPadrao(this, "Não foi possível realizar a conexão com o dispositivo",
+            "Ok", {
+            }, "", {
+            }, false).show()
+//        val dialogBuilder = AlertDialog.Builder(context)
+//        dialogBuilder.setMessage("Não foi possível realizar a conexão com o dispositivo")
+//            .setCancelable(false)
+//            .setPositiveButton("Ok", DialogInterface.OnClickListener {
+//                    dialog, id -> loading.visibility = View.GONE
+//            })
+//
+//        val alert = dialogBuilder.create()
+//        alert.setTitle("Atenção")
+//        alert.show()
     }
 
     private fun mostrarConexao() {
@@ -265,7 +287,7 @@ class HomeActivity : AppCompatActivity() {
             }, "", {
             }, false).show()
     }
-
+    private var firstTime = true
 
     private fun checkBTPermissions() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
@@ -289,7 +311,13 @@ class HomeActivity : AppCompatActivity() {
                     ActivityCompat.requestPermissions(this,
                         arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                         1001)
-                    mostrarDialogPermissaoNegada()
+                    if(!firstTime)
+                        {
+                            mostrarDialogPermissaoNegada()
+                        }
+                    else {
+                        firstTime = false
+                    }
                     // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
                     // app-defined int constant. The callback method gets the
                     // result of the request.
