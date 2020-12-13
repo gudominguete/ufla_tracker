@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ufla.gustavo.uflatracker">
+    package="com.flex.flextracker">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -12,7 +12,7 @@
         android:required="true" />
 
     <application
-        android:name=".TrackerApplication"
+        android:name="com.flex.flextracker.TrackerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,31 +21,31 @@
         android:theme="@android:style/Theme.NoTitleBar"
         tools:ignore="GoogleAppIndexingWarning">
         <service
-            android:name=".service.ConectarBluetoothService"
+            android:name="com.flex.flextracker.service.ConectarBluetoothService"
             android:enabled="true"
             android:exported="true"></service>
 
         <activity
-            android:name=".ui.atividade.AtividadeActivity"
+            android:name="com.flex.flextracker.ui.atividade.AtividadeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.perfil.PerfilActivity"
+            android:name="com.flex.flextracker.ui.perfil.PerfilActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name="com.flex.flextracker.ui.home.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.conexaobluetooth.ConexaoBluetoothActivity" />
+        <activity android:name="com.flex.flextracker.ui.conexaobluetooth.ConexaoBluetoothActivity" />
         <activity
-            android:name=".ui.visualizacao.VisualizacaoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.historico.HistoricoActivity"
+            android:name="com.flex.flextracker.ui.visualizacao.VisualizacaoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.perfil.EditarPerfilActivity"
+            android:name="com.flex.flextracker.ui.historico.HistoricoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name="com.flex.flextracker.ui.perfil.EditarPerfilActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.flex.flextracker.ui.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

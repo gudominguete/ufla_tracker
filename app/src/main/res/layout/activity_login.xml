@@ -28,7 +28,7 @@
             style="@style/TextoTituloRegular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ufla" />
+            android:text="@string/flex" />
 
         <TextView
             android:id="@+id/texto_tracker"

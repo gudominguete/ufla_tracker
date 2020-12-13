@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UFLATracker</string>
+    <string name="app_name">FlexTracker</string>
     <string name="title_activity_graphic">GraphicActivity</string>
 
 
@@ -19,7 +19,7 @@
     <string name="ble_not_supported">O celular não suporta BLE</string>
     <string name="entrar">Entrar</string>
     <string name="tracker">TRACKER</string>
-    <string name="ufla">UFLA</string>
+    <string name="flex">FLEX</string>
     <string name="ola">Olá,</string>
     <string name="ver_mais">Ver mais >></string>
 </resources>
